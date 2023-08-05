@@ -1,0 +1,3 @@
+<template>
+    Nothing here
+</template>
