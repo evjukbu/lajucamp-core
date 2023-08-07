@@ -9,18 +9,25 @@ export default defineNuxtConfig({
         require('@tailwindcss/typography'),
       ],
       daisyui: {
-        themes: ["fantasy", "night"],
+        themes: [
+          "light",
+          "fantasy",
+          "pastel",
+          "forest",
+          "dark",
+        ],        
       },
       theme: {
         container: {
           margin: '1rem',
         },
       },
+      
     }
   },
   runtimeConfig: {
     public: {
       pocketbaseUrl: '',
     }
-  }
+  },
 })

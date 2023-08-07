@@ -78,8 +78,9 @@ const routes = {
     more: [
         'test',
         'misc',
-        'misc-keys',
-        'misc-keys-add',
+        'misc-settings-keys',
+        'misc-settings-keys-add',
+        'misc-settings-appearance',
         'misc-page-id'
     ]
 }

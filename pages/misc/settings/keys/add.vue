@@ -1,5 +1,6 @@
 <template>
     <CardLikeContainer>
+        <h1 class="text-3xl pb-3">Schlüssel hinzufügen</h1>
         <ul class="steps">
             <li :class="'step ' + ((step >= 0) ? 'step-primary' : '')">Schlüssel eingeben</li>
             <li :class="'step ' + ((step >= 1) ? 'step-primary' : '')">Schlüssel bestätigen</li>
