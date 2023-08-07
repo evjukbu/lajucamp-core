@@ -1,8 +1,7 @@
 <template>
-    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content">
+
         <div class="header">
-            <div class="navbar bg-base-100">
+            <div class="navbar top-0 bg-base-100">
                 <div class="flex-1">
                     <a class="btn btn-ghost normal-case text-xl">Jugendfestival</a>
                 </div>
@@ -22,5 +21,4 @@
                 </div>
             </div>
         </div>
-    </div>
 </template>
