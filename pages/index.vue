@@ -1,5 +1,7 @@
 <template>
-    <HomepageWelcomeCard class="py-2"/>
-    <br />
-    <HomepageEventListCard class="py-2" />
+    <div class="space-y-3">
+        <HomepageWelcomeCardBundle/>
+        <HomepageEventListCard />
+        <SingleNewsCard />
+    </div>
 </template>

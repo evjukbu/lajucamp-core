@@ -1,9 +1,9 @@
 <template>
     <router-link :to="'/posts/' + post.id">
-        <div class="card bg-base-100 shadow-lg">
+        <div class="card card-compact bg-base-100 shadow-lg">
             <figure><img :src="pb.files.getUrl(props.post, props.post.image)" alt="Shoes" /></figure>
             <div class="card-body">
-                <span>{{ getRelativeTime(new Date(post.created)) }}</span>
+                <span class="text-sm font-light">{{ getRelativeTime(new Date(post.created)) }}</span>
                 <h2 class="card-title">{{ props.post.title }}</h2>
                 <p>{{ props.post.description }}</p>
                 <div class="card-actions justify-end">
