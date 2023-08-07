@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "de.kjdburgdorf.festival",
+    "sha256_cert_fingerprints": [
+      "DB:08:51:07:65:D5:4F:DE:1A:6B:46:E7:3D:D9:8F:24:85:49:F7:D0:76:15:86:57:C5:C5:1E:50:E1:54:9A:0F"
+    ]
+  }
+}]
