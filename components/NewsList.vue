@@ -1,5 +1,5 @@
 <template>
-<div v-if="posts != null">
+<div v-if="posts != null" class="flex flex-col space-y-3">
     <NewsListCard v-for="post in posts" :key="post.id" :post="post" />
 </div>
 <div v-else class="flex items-center h-screen">
