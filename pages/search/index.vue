@@ -1,10 +1,13 @@
 <template>
-    <div>
-        <input v-model="query" @input="search()" type="text" placeholder="Type here" class="input input-bordered w-full" /><br />
-        <div class="py-3" v-if="query !== ''">
+    <CardLikeContainer>
+        <h1 class="text-3xl pb-3">Suchen</h1>
+        <input v-model="query" @input="search()" type="text" placeholder="Suchbegriff eingeben"
+            class="input input-bordered w-full" /><br />
+        <div class="pb-3" v-if="query !== ''">
             <div v-if="events !== null && events.length > 0">
                 <span class="text-sm font-light">Veranstaltungen</span>
-                <EventListEntry v-for="event in events" :key="event.id" :item="event" :locations="locationList" :categories="categoryList" />
+                <EventListEntry v-for="event in events" :key="event.id" :item="event" :locations="locationList"
+                    :categories="categoryList" />
             </div>
             <div v-if="categories !== null && categories.length > 0">
                 <span class="text-sm font-light">Kategorien</span>
@@ -16,9 +19,10 @@
             </div>
         </div>
         <div v-else class="flex items-center h-screen">
-        <span class="mx-auto text-sm font-light">Tippen, um zu suchen</span>
-</div>
-    </div>
+            <span class="mx-auto text-sm font-light">Tippen, um zu suchen</span>
+        </div>
+    </CardLikeContainer>
+        
 </template>
 
 <script setup>
@@ -72,20 +76,20 @@ async function search() {
             sort: 'name',
             filter: "name~'" + query.value + "' || description~'" + query.value + "'"
         });
-        for(const record of events.value) {
+        for (const record of events.value) {
             locationList.value[record.location] = allLocations.find(item => item.id === record.location)
             categoryList.value[record.category] = allCategories.find(item => item.id === record.category)
-        
+
         }
         categories.value = await pb.collection('categories').getFullList({
             sort: 'name',
             filter: "name~'" + query.value + "' || description~'" + query.value + "'"
         });
-        if(allowMusic.value) {
+        if (allowMusic.value) {
             songs.value = await pb.collection('songs').getFullList({
-            sort: 'name',
-            filter: "name~'" + query.value + "' || author~'" + query.value + "'"
-        });
+                sort: 'name',
+                filter: "name~'" + query.value + "' || author~'" + query.value + "'"
+            });
         }
 
     }
