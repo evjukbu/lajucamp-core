@@ -45,7 +45,7 @@
             <p class="py-3 text-center">Der Schlüssel wurde erfolgreich aktiviert.</p>
 
             <div class="flex justify-end py-4 space-x-2">
-                <router-link to="/misc/keys">
+                <router-link to="/misc/settings/keys">
                     <div class="btn btn-primary">Fertig</div>
                 </router-link>
             </div>
