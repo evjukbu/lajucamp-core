@@ -19,7 +19,8 @@
 
             <span class="btm-nav-label">Events</span>
         </router-link>
-        <router-link v-show="checkMusicAccess()" :class="(routes.music.includes($route.name)) ? 'active' : 'not_active'" to="/music">
+        <router-link v-show="checkMusicAccess()" :class="(routes.music.includes($route.name)) ? 'active' : 'not_active'"
+            to="/music">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                 class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -31,7 +32,8 @@
 
         <router-link :class="(routes.news.includes($route.name)) ? 'active' : 'not_active'" to="/posts">
             <div class="indicator">
-                <span v-if="1 === 2" class="indicator-item indicator-bottom indicator-end badge badge-xs badge-secondary"></span>
+                <span v-if="1 === 2"
+                    class="indicator-item indicator-bottom indicator-end badge badge-xs badge-secondary"></span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -81,7 +83,8 @@ const routes = {
         'misc-settings-keys',
         'misc-settings-keys-add',
         'misc-settings-appearance',
-        'misc-page-id'
+        'misc-page-id',
+        'misc-about'
     ]
 }
 
