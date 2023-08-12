@@ -6,7 +6,10 @@
     <div class="card card-compact w-full bg-base-100 shadow-xl">
       <div class="card-body">
         <h2 class="card-title">Jugendfestival App Version {{ version }}</h2>
-        <p>Copyright © 2023 Evangelische Jugend im Kirchenkreis Burgdorf.</p>
+        <figure class="flex justify-center">
+          <img src="~assets/ejkkbu.png" class="w-2/6" />
+        </figure>
+        <span class="text-center">Copyright © 2023 Evangelische Jugend im Kirchenkreis Burgdorf.</span>
       </div>
     </div>
     <div class="card card-compact w-full bg-base-100 shadow-xl">
@@ -69,6 +72,7 @@ const changelog = [
   {
     date: "12. August 2023",
     changes: [
+      "Added: Logo in der About Page",
       "Change: Verbessertes Spacing im 'Über diese App' Bildschirm"
     ]
   },
