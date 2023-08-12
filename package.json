@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "Festivalapp",
   "private": true,
   "scripts": {
     "build": "nuxt build",

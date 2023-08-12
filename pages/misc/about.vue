@@ -73,6 +73,7 @@ const changelog = [
     date: "12. August 2023",
     changes: [
       "Added: Logo in der About Page",
+      "Change: Passende Werte im Manifest der PWA",
       "Change: Verbessertes Spacing im 'Über diese App' Bildschirm"
     ]
   },
