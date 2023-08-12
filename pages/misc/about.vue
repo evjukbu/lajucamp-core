@@ -1,6 +1,8 @@
 <template>
   <CardLikeContainer>
     <h1 class="text-3xl pb-3">Über diese App</h1>
+  </CardLikeContainer>
+  <div class="flex flex-col space-y-3">
     <div class="card card-compact w-full bg-base-100 shadow-xl">
       <div class="card-body">
         <h2 class="card-title">Jugendfestival App Version {{ version }}</h2>
@@ -56,7 +58,8 @@
         </div>
       </div>
     </div>
-  </CardLikeContainer>
+    <br />
+  </div>
 </template>
 
 <script setup>
@@ -65,6 +68,12 @@ const version = "1.0"
 const changelog = [
   {
     date: "12. August 2023",
+    changes: [
+      "Change: Verbessertes Spacing im 'Über diese App' Bildschirm"
+    ]
+  },
+  {
+    date: "11. August 2023",
     changes: [
       "Added: Neue Seite 'Über diese App'",
       "Fix: Das ausgewählte Design wird für die ganze Seite verwendet",
