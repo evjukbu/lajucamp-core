@@ -1,7 +1,7 @@
 <template>
-    <router-link :to="'/events/' + props.item.id" class="flex items-center py-1">
+    <router-link :to="'/events/' + props.item.id" class="flex items-center py-1 space-x-2">
         <div class="flex flex-col text-sm font-bold">
-            <EventListEntryDateContainer :record="props.item"/>
+            <EventListEntryDateContainer :record="props.item" />
         </div>
         <div class="flex flex-col">
             <h1 class="text-lg font-bold">{{ props.item.name }}</h1>
@@ -21,6 +21,8 @@
 const props = defineProps(["item", "locations", "categories"])
 </script>
   
-<style scoped>.event-chip {
+<style scoped>
+.event-chip {
     margin: 0.1rem;
-}</style>
+}
+</style>

@@ -70,6 +70,12 @@ const version = "1.0"
 
 const changelog = [
   {
+    date: "13. August 2023",
+    changes: [
+      "Change: Allgemeine Layout Verbesserungen bei Spacing"
+    ]
+  },
+  {
     date: "12. August 2023",
     changes: [
       "Added: Logo in der About Page",

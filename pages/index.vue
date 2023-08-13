@@ -1,6 +1,6 @@
 <template>
-    <div class="space-y-3">
-        <HomepageWelcomeCardBundle/>
+    <div class="flex flex-col space-y-3">
+        <HomepageWelcomeCardBundle />
         <HomepageEventListCard />
         <SingleNewsCard />
     </div>

@@ -1,8 +1,8 @@
 <template>
     <RouterLink v-if="post !== null" :to="'/posts/' + post.id">
-        <div class="card card-compact shadow-xl">
+        <div class="card card-compact bg-base-100 shadow-xl">
             <div class="card-body">
-                <span class="text-sm font-light">Beitrag veröffentlicht {{ getRelativeTime(new Date(post.created))}}</span>
+                <span class="text-sm font-light">Beitrag veröffentlicht {{ getRelativeTime(new Date(post.created)) }}</span>
                 <h2 class="card-title">
                     {{ post.title }}
                     <span>

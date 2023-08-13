@@ -2,7 +2,7 @@
     <div class="header">
         <div class="navbar bg-base-100">
             <div class="flex-1">
-                <a class="btn btn-ghost normal-case text-xl">Jugendfestival</a>
+                <a class="btn btn-ghost normal-case text-xl p-2">Jugendfestival</a>
             </div>
             <div class="flex-none">
                 <router-link to="/search">
