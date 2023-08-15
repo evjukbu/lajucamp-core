@@ -7,4 +7,14 @@
       "DB:08:51:07:65:D5:4F:DE:1A:6B:46:E7:3D:D9:8F:24:85:49:F7:D0:76:15:86:57:C5:C5:1E:50:E1:54:9A:0F"
     ]
   }
-}]
+},
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "de.kjdburgdorf.festival",
+      "sha256_cert_fingerprints":
+        ["74:CB:70:F3:B0:BF:47:21:59:AE:6B:C3:87:D1:5D:DC:28:68:F3:E7:4B:4B:B9:6E:8F:DB:D4:D0:EB:81:B8:CB"]
+    }
+  }
+]
