@@ -7,7 +7,7 @@
       <div class="card-body">
         <h2 class="card-title">Jugendfestival App Version {{ version }}</h2>
         <figure class="flex justify-center">
-          <img src="~assets/ejkkbu.png" class="w-2/6" />
+          <img src="/icon.png" class="w-1/2" />
         </figure>
         <span class="text-center">Copyright © 2023 Evangelische Jugend im Kirchenkreis Burgdorf.</span>
       </div>
@@ -69,6 +69,13 @@
 const version = "1.0"
 
 const changelog = [
+  {
+    date: "16. August 2023",
+    changes: [
+      "change: Das Festival Logo wird nun unter 'Über diese App' verwendet.",
+      "change: Die aktuelle Version des Festival Logos wird verwendet."
+    ]
+  },
   {
     date: "13. August 2023",
     changes: [
