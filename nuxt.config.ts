@@ -36,6 +36,9 @@ export default defineNuxtConfig({
       short_name: "Festival",
       lang: "de",
       description: "Die offizielle Begleitapp zum Festival der Kirchenkreise Burgdorf und Burgwedel-Langenhagen."
+    },
+    icon: {
+      purpose: 'maskable'
     }
   }
 })
