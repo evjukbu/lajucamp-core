@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  modules: ['@nuxtjs/tailwindcss', '@kevinmarrec/nuxt-pwa'],
+  modules: ['@nuxtjs/tailwindcss', '@kevinmarrec/nuxt-pwa', '@nuxtjs/device'],
   tailwindcss: {
     config: {
       plugins: [

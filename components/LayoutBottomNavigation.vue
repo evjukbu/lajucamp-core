@@ -84,7 +84,8 @@ const routes = {
         'misc-settings-keys-add',
         'misc-settings-appearance',
         'misc-page-id',
-        'misc-about'
+        'misc-about',
+        'misc-install'
     ]
 }
 
