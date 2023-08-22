@@ -113,7 +113,7 @@ const changelog = [
     date: "22. August 2023",
     changes: [
       "Added: Auf der Startseite können durch die Admins Veranstaltungen ausgeblendet werden. Unter 'Events' werden weiterhin alle Veranstaltungen angezeigt.",
-      "Change: Interne Änderungen im 'Über diese App' Bereich"
+      "Change: Refactoring unter 'Über diese App' und in der Veranstaltungsliste"
     ]
   },
   {

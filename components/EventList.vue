@@ -1,7 +1,6 @@
 <template>
     <div v-if="records != null">
-        <EventListEntry v-for="item in records" :key="item.id" :item="item" :locations="locations"
-            :categories="categories" />
+        <EventListEntry v-for="item in records" :key="item.id" :item="item" />
     </div>
     <div v-else>
         <EventListEntrySkeleton v-for="i in (parseInt((props.limit !== undefined) ? props.limit : 8))" :key="i" />
@@ -21,11 +20,11 @@ onMounted(async () => {
     let result = null
     let options = {
         sort: 'start',
-        filter: 'end >= "' + new Date().toISOString().replace('T', ' ').slice(0, -5) + '"'
+        filter: 'end >= "' + new Date().toISOString().replace('T', ' ').slice(0, -5) + '"',
+        expand: 'category,location'
     }
     if (props.homepage !== undefined) {
         options.filter = options.filter + " && homepage_ignore = false"
-        console.log(options)
     }
     if (props.limit === undefined) {
         r = await pb.collection('events').getFullList(options);
@@ -33,13 +32,6 @@ onMounted(async () => {
     } else {
         r = await pb.collection('events').getList(1, props.limit, options);
         result = r.items
-    }
-
-    for (const record of result) {
-        const l = await pb.collection('locations').getOne(record.location)
-        locations[l.id] = l
-        const c = await pb.collection('categories').getOne(record.category)
-        categories[c.id] = c
     }
     records.value = result
 })

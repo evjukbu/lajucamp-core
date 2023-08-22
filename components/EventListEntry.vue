@@ -7,10 +7,10 @@
             <h1 class="text-lg font-bold">{{ props.item.name }}</h1>
             <div class="flex gap-2">
                 <div class="badge badge-info gap-2 badge-outline">
-                    {{ props.locations[props.item.location].name }}
+                    {{ props.item.expand.location.name }}
                 </div>
                 <div class="badge badge-accent gap-2 badge-outline">
-                    {{ props.categories[props.item.category].name }}
+                    {{ props.item.expand.category.name }}
                 </div>
             </div>
         </div>
@@ -18,7 +18,7 @@
 </template>
   
 <script setup>
-const props = defineProps(["item", "locations", "categories"])
+const props = defineProps(["item"])
 </script>
   
 <style scoped>
