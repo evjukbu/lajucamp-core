@@ -161,6 +161,12 @@ const version = "1.0"
 
 const changelog = [
   {
+    date: "22. August 2023",
+    changes: [
+      "Added: Auf der Startseite können durch die Admins Veranstaltungen ausgeblendet werden. Unter 'Events' werden weiterhin alle Veranstaltungen angezeigt."
+    ]
+  },
+  {
     date: "21. August 2023",
     changes: [
       "Added: In der Webversion wird auf der Startseite nun eine 'App installieren' Schaltflächen angezeigt.",
