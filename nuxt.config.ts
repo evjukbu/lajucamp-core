@@ -15,14 +15,20 @@ export default defineNuxtConfig({
           "pastel",
           "forest",
           "dark",
-        ],        
+        ],
       },
       theme: {
         container: {
           margin: '1rem',
         },
       },
-      
+      safelist: [
+        "bg-orange-400",
+        "bg-secondary",
+        "bg-red-400",
+        "bg-purple-400"
+      ]
+
     }
   },
   runtimeConfig: {
