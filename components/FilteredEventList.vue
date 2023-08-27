@@ -1,7 +1,7 @@
 <template>
-    <EventListEntry v-for="item in items" :key="item.id" :item="item" :categories="categories" :locations="locations" />
+    <EventListEntry v-for="item in items" :key="item.id" :item="item" />
 </template>
 
 <script setup>
-const props = defineProps(['items', 'categories', 'locations'])
+const props = defineProps(['items'])
 </script>
