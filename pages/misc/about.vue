@@ -110,6 +110,12 @@ const contributors = [
 ]
 const changelog = [
   {
+    date: "27. August 2023",
+    changes: [
+      "Fix: Kategorien zeigen wieder Veranstaltungen an",
+    ]
+  },
+  {
     date: "22. August 2023",
     changes: [
       "Added: Auf der Startseite können durch die Admins Veranstaltungen ausgeblendet werden. Unter 'Events' werden weiterhin alle Veranstaltungen angezeigt.",
