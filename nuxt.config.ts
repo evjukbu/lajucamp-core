@@ -45,6 +45,9 @@ export default defineNuxtConfig({
     },
     icon: {
       purpose: 'maskable'
+    },
+    workbox: {
+      templatePath: '@/public/sw.js'
     }
   }
 })
