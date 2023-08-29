@@ -9,16 +9,10 @@
 import FilteredEventList from '../../components/FilteredEventList.vue';
 
 const route = useRoute()
-const pb = usePocketBase();
-
+const eventManager = useEventManager()
 const records = ref(null);
 onMounted(async () => {
-    const r = await pb.collection('events').getFullList({
-        sort: '-start',
-        filter: 'category = "' + route.params.id + '"',
-        expand: 'category,location'
-    });
-    records.value = r
+    records.value = await eventManager.getByCategory(route.params.id)
 });
 
 </script>
