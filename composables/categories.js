@@ -29,10 +29,12 @@ export const useCategoryManager = () => {
     const CategoryManager = {
         getList: async () => {
             return (await getCategoryList()).items
-
+        },
+        getById: async (id) => {
+            return (await getCategoryList()).items.find(obj => obj.id === id)
         },
         update: async () => {
-            await getEventList()
+            await getCategoryList()
         },
         lastUpdated: () => {
             return storage.value.updated
