@@ -47,7 +47,9 @@ export default defineNuxtConfig({
       purpose: 'maskable'
     },
     workbox: {
-      templatePath: '@/public/sw.js'
+      templatePath: '@/public/sw.js',
+      offline: true,
+      preCaching: ["/", "/misc", "/misc/about", "/misc/settings/appearance", "/misc/settings/keys", "/misc/settings/keys/add", "/search", "/events", "/posts", "/misc/install"]
     }
   }
 })
