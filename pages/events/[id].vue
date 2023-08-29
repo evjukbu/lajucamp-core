@@ -17,7 +17,7 @@
                             clip-rule="evenodd" />
                     </svg>
 
-                    {{ location.name }}
+                    {{ record.expand.location.name }}
                 </div>
                 <div class="badge badge-accent gap-2 badge-outline badge-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
@@ -26,7 +26,7 @@
                             clip-rule="evenodd" />
                     </svg>
 
-                    {{ category.name }}
+                    {{ record.expand.category.name }}
                 </div>
             </div>
             <div class="prose" v-html="record.description"></div>
@@ -39,16 +39,10 @@
 
 <script setup>
 const route = useRoute()
-const pb = usePocketBase();
-
+const eventManager = useEventManager()
 const record = ref(null);
-let location = ref(null)
-let category = ref(null)
 
 onMounted(async () => {
-    const r = await pb.collection('events').getOne(route.params.id)
-    location.value = await pb.collection('locations').getOne(r.location)
-    category.value = await pb.collection('categories').getOne(r.category)
-    record.value = r
+    record.value = await eventManager.getById(route.params.id)
 });
 </script>

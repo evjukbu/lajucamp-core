@@ -8,32 +8,25 @@
 </template>
 
 <script setup>
-const pb = usePocketBase()
-
 const props = defineProps(["limit", "homepage"])
+const eventManager = useEventManager()
 let records = ref(null)
-let locations = reactive({})
-let categories = reactive({})
+
 
 onMounted(async () => {
-    let r = null
-    let result = null
-    let options = {
-        sort: 'start',
-        filter: 'end >= "' + new Date().toISOString().replace('T', ' ').slice(0, -5) + '"',
-        expand: 'category,location'
-    }
     if (props.homepage !== undefined) {
-        options.filter = options.filter + " && homepage_ignore = false"
-    }
-    if (props.limit === undefined) {
-        r = await pb.collection('events').getFullList(options);
-        result = r
+        if (props.limit === undefined) {
+            records.value = await eventManager.getList()
+        } else {
+            records.value = await eventManager.getList(props.limit)
+        }
     } else {
-        r = await pb.collection('events').getList(1, props.limit, options);
-        result = r.items
+        if (props.limit === undefined) {
+            records.value = await eventManager.getUpcomingHomepageEvents()
+        } else {
+            records.value = await eventManager.getUpcomingHomepageEvents(props.limit)
+        }
     }
-    records.value = result
 })
 
 </script>
