@@ -8,6 +8,11 @@ export const usePostManager = () => {
         const response = await pb.collection('posts').getFullList({
             sort: '-created',
         });
+        response.forEach((item) => {
+            // Do the request once so that we have the images cached
+            console.log("Fetching")
+            fetch(pb.files.getUrl(item, item.image))
+        })
         const data = { updated: new Date(), items: response }
         return data
     }

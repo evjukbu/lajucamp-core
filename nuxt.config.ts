@@ -48,6 +48,8 @@ export default defineNuxtConfig({
     },
     workbox: {
       templatePath: '@/public/sw.js',
+      offlinePage: '/404.html',
+      globPatterns: ['**/*.{js,css}'],
       offline: true,
       preCaching: ["/", "/misc", "/misc/about", "/misc/settings/appearance", "/misc/settings/keys", "/misc/settings/keys/add", "/search", "/events", "/posts", "/misc/install"]
     }
