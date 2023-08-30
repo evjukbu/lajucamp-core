@@ -9,3 +9,16 @@ export const shouldUpdateCache = (storage, minutes) => {
         return true
     }
 }
+
+export const updateAllCaches = async () => {
+    const categoryManager = useCategoryManager()
+    const eventManager = useEventManager()
+    const pageManager = usePageManager()
+    const welcomeManager = useWelcomeManager()
+    const PostManager = usePostManager()
+    await categoryManager.update()
+    await eventManager.update()
+    await pageManager.update()
+    await welcomeManager.update()
+    await PostManager.update()
+}

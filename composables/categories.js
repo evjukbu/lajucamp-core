@@ -44,6 +44,7 @@ export const useCategoryManager = () => {
         lastUpdated: () => {
             return storage.value.updated
         }
+
     }
 
     return CategoryManager
