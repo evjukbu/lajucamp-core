@@ -7,7 +7,8 @@
       <div class="card-body">
         <h2 class="card-title">Jugendfestival App Version {{ version }}</h2>
         <figure class="flex justify-center">
-          <img src="~assets/ejkkbu.png" class="w-1/3" />
+          <img v-if="theme.isDark()" src="~assets/ejkkbu_darkmode.png" class="w-1/3" />
+          <img v-else src="~assets/ejkkbu.png" class="w-1/3" />
         </figure>
         <span class="text-center">Copyright © 2023 Evangelische Jugend im Kirchenkreis Burgdorf.</span>
       </div>
@@ -110,11 +111,13 @@ const contributors = [
 ]
 const changelog = [
   {
-    date: "30. August 2023",
+    date: "30. August 2023 - Version 1.1",
     changes: [
       "Added: Das Farbdesign \"Festival Dunkel\" wurde als Preview hinzugefügt.",
       "Added: Die App speichert nun einige Daten im Cache, um die Ladezeiten zu verbessern und offline zuverlässiger zu funktionieren.",
-      "Change: Der Service Worker benutzt nun bei mehr Seiten Pre-Caching, um die Ladezeiten zu verbessern."
+      "Change: Der Service Worker benutzt nun bei mehr Seiten Pre-Caching, um die Ladezeiten zu verbessern.",
+      "Change: Designs wurden refactored.",
+      "Change: Das Logo unter 'Über diese App' wird nun auch in Designs mit dunklem Hintergrund richtig angezeigt.",
     ]
   },
   {
@@ -185,4 +188,6 @@ const changelog = [
     ]
   }
 ]
+
+const theme = useTheme()
 </script>
