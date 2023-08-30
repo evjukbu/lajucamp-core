@@ -22,7 +22,6 @@
             <span class="mx-auto text-sm font-light">Tippen, um zu suchen</span>
         </div>
     </CardLikeContainer>
-        
 </template>
 
 <script setup>
@@ -31,8 +30,6 @@ const pb = usePocketBase()
 const events = ref(null)
 const categories = ref(null)
 const songs = ref(null)
-let allLocations
-let allCategories
 const locationList = ref({})
 const categoryList = ref({})
 const allowMusic = ref(false)
@@ -55,12 +52,6 @@ function checkMusicAccess() {
 }
 
 onMounted(async () => {
-    allLocations = await pb.collection('locations').getFullList({
-        sort: 'name'
-    });
-    allCategories = await pb.collection('categories').getFullList({
-        sort: 'name'
-    });
     allowMusic.value = checkMusicAccess()
 })
 
@@ -74,13 +65,10 @@ async function search() {
         console.log("Searching")
         events.value = await pb.collection('events').getFullList({
             sort: 'name',
-            filter: "name~'" + query.value + "' || description~'" + query.value + "'"
+            filter: "name~'" + query.value + "' || description~'" + query.value + "'",
+            expand: 'location,category'
         });
-        for (const record of events.value) {
-            locationList.value[record.location] = allLocations.find(item => item.id === record.location)
-            categoryList.value[record.category] = allCategories.find(item => item.id === record.category)
 
-        }
         categories.value = await pb.collection('categories').getFullList({
             sort: 'name',
             filter: "name~'" + query.value + "' || description~'" + query.value + "'"
