@@ -17,10 +17,17 @@
             </div>
         </div>
     </RouterLink>
+    <div v-else class="card card-compact bg-base-100 shadow-xl">
+        <div class="card-body flex flex-col">
+            <div class="animate-pulse w-48 bg-gray-300 h-3 rounded-md px-2"></div>
+            <div class="animate-pulse w-36 bg-gray-300 h-7 rounded-md px-2"></div>
+            <div class="animate-pulse w-80 bg-gray-300 h-5 rounded-md px-2"></div>
+        </div>
+    </div>
 </template>
 
 <script setup>
-const pb = usePocketBase()
+const postManager = usePostManager()
 
 const units = {
     year: 24 * 60 * 60 * 1000 * 365,
@@ -44,10 +51,14 @@ var getRelativeTime = (d2) => {
 }
 
 const post = ref(null)
-const resultList = await pb.collection('posts').getList(1, 1, {
-    sort: '-created',
-});
-if (resultList.totalItems > 0) {
-    post.value = resultList.items[0]
-}
+
+onMounted(async () => {
+    const resultList = await postManager.getList(1)
+    console.log(resultList)
+    if (resultList.length > 0) {
+        post.value = resultList[0]
+    }
+    console.log(post.value)
+})
+
 </script>

@@ -1,27 +1,25 @@
 <template>
-<div v-if="posts != null" class="flex flex-col space-y-3">
-    <NewsListCard v-for="post in posts" :key="post.id" :post="post" />
-</div>
-<div v-else class="flex items-center h-screen">
+    <div v-if="posts != null" class="flex flex-col space-y-3">
+        <NewsListCard v-for="post in posts" :key="post.id" :post="post" />
+    </div>
+    <div v-else class="flex items-center h-screen">
         <span class="mx-auto loading loading-dots loading-lg"></span>
-</div>
+    </div>
 </template>
 
 <script setup>
 
 const pb = usePocketBase()
+const postManager = usePostManager()
 const props = defineProps(["maxPosts"])
 let posts = ref(null)
 
 onMounted(async () => {
+    let something = await postManager.getList()
     if (props.maxPosts == undefined) {
-        posts.value = await pb.collection('posts').getFullList({
-            sort: '-created',
-        })
+        posts.value = await postManager.getList()
     } else {
-        const resultList = await pb.collection('posts').getList(0, props.maxPosts, {
-            sort: '-created',
-        })
+        const resultList = await postManager.getList(props.maxPosts)
         posts.value = resultList.items
     }
 
