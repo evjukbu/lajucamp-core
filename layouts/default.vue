@@ -1,10 +1,10 @@
 <template>
     <LayoutThemeHelper>
-    <LayoutTopbar class="sticky top-0 z-50" />
-    <main :data-theme="cookie" class="content px-3 bg-background relative pb-16">
-        <slot />
-    </main>
-    <LayoutBottomNavigation />
+        <LayoutTopbar class="sticky top-0 z-50" />
+        <main :data-theme="cookie" class="content px-3 bg-background relative pb-16">
+            <slot />
+        </main>
+        <LayoutBottomNavigation />
     </LayoutThemeHelper>
 </template>
 

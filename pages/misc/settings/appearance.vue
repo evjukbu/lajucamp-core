@@ -4,7 +4,8 @@
         <div class="form-control" v-for="(theme, index) in themes" :key="index">
             <label class="label cursor-pointer">
                 <span class="label-text">{{ theme.name }}</span>
-                <input type="radio" :name="theme.name" class="radio" :checked="selected === theme.name" @change="selected = theme.name" />
+                <input type="radio" :name="theme.name" class="radio" :checked="selected === theme.name"
+                    @change="selected = theme.name" />
             </label>
         </div>
         <div class="flex justify-end py-4 space-x-2">
@@ -16,8 +17,9 @@
 <script setup>
 
 const themes = [
-    { name: 'Fantasy (Standard)', internal: "fantasy" },
-    { name: 'Sonnig', internal: "light"},
+    { name: 'Festival Dunkel - Preview', internal: "bulabu" },
+    { name: 'Fantasy - Standard', internal: "fantasy" },
+    { name: 'Sonnig', internal: "light" },
     { name: 'Pastel', internal: "pastel" },
     { name: 'Dunkel - Nacht', internal: "dark" },
     { name: 'Dunkel - Wald', internal: "forest" },

@@ -10,6 +10,19 @@ export default defineNuxtConfig({
       ],
       daisyui: {
         themes: [
+          {
+            bulabu: {
+              "primary": "#b70f65",
+              "secondary": "#fdc334",
+              "accent": "#38bdf8",
+              "neutral": "#2a323c",
+              "base-100": "#1d232a",
+              "info": "#eb5c9d",
+              "success": "#fccb83",
+              "warning": "#f29277",
+              "error": "#e94273",
+            }
+          },
           "light",
           "fantasy",
           "pastel",
