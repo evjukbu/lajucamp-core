@@ -5,16 +5,16 @@
     </CardLikeContainer>
     <div v-else class="flex items-center h-screen">
         <span class="mx-auto loading loading-dots loading-lg"></span>
-</div>
+    </div>
 </template>
 
 <script setup>
 const route = useRoute()
-const pb = usePocketBase()
+const pageManager = usePageManager()
 const page = ref(null)
 
 onMounted(async () => {
-    page.value = await pb.collection('pages').getOne(route.params.id)
+    page.value = await pageManager.getById(route.params.id)
 })
 
 </script>

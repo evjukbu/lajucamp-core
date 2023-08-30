@@ -8,11 +8,10 @@
 </template>
 
 <script setup>
-const pb = usePocketBase();
-
+const categoryManager = useCategoryManager()
 const categories = ref(null);
 
 onMounted(async () => {
-  categories.value = await pb.collection('categories').getFullList();
+    categories.value = await categoryManager.getList()
 });
 </script>

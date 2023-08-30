@@ -37,13 +37,13 @@
 </template>
 
 <script setup>
-const pocketbase = usePocketBase()
+const pageManager = usePageManager()
 const cookie = useCookie("keys", { expires: new Date('9999-12-31') })
 
 let records = ref([])
 
 onMounted(async () => {
-    records.value = await pocketbase.collection('pages').getFullList({});
+    records.value = await pageManager.getList()
 })
 
 
