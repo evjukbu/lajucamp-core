@@ -2,6 +2,7 @@ import { useLocalStorage } from "@vueuse/core"
 
 export const usePostManager = () => {
     const pb = usePocketBase()
+    const storage = useLocalStorage("postStore", { updated: null, items: [] })
 
 
     async function getInternalPostList() {
@@ -17,18 +18,20 @@ export const usePostManager = () => {
         return data
     }
 
+    async function update() {
+        const data = await getInternalPostList()
+        storage.value = data
+        return data
+    }
 
 
     async function getPostList() {
-        const storage = useLocalStorage("postStore", { updated: null, items: [] })
         let shouldUpdate = false
         if (shouldUpdateCache(storage, 120)) {
             shouldUpdate = true
         }
         if (shouldUpdate) {
-            const data = await getInternalPostList()
-            storage.value = data
-            return data
+            return await update()
         } else {
             if (storage.value.updated !== null) {
                 return storage.value
@@ -47,7 +50,7 @@ export const usePostManager = () => {
             }
         },
         update: async () => {
-            return await getPostList()
+            return await update()
         },
         lastUpdated: () => {
             return storage.value.updated

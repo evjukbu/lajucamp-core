@@ -2,6 +2,8 @@ import { useLocalStorage } from "@vueuse/core"
 
 export const useEventManager = () => {
     const pb = usePocketBase()
+    const storage = useLocalStorage("eventStore", { updated: null, items: [] })
+
     async function getInternalEventList() {
         const response = await pb.collection('events').getFullList({
             expand: "location,category",
@@ -11,16 +13,19 @@ export const useEventManager = () => {
         return data
     }
 
+    async function update() {
+        const data = await getInternalEventList()
+        storage.value = data
+        return data
+    }
+
     async function getEventList() {
-        const storage = useLocalStorage("eventStore", { updated: null, items: [] })
         let shouldUpdate = false
         if (shouldUpdateCache(storage, 5)) {
             shouldUpdate = true
         }
         if (shouldUpdate) {
-            const data = await getInternalEventList()
-            storage.value = data
-            return data
+            return await update()
         } else {
             if (storage.value.updated !== null) {
                 return storage.value
@@ -64,7 +69,7 @@ export const useEventManager = () => {
             return data
         },
         update: async () => {
-            await getEventList()
+            await update()
         },
         lastUpdated: () => {
             return storage.value.updated

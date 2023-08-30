@@ -2,6 +2,9 @@ import { useLocalStorage } from "@vueuse/core"
 
 export const useWelcomeManager = () => {
     const pb = usePocketBase()
+    const storage = useLocalStorage("welcomeMessageStore", { updated: null, items: [] })
+
+
     async function getInternalMessageList() {
         const response = await pb.collection('welcome_messages').getFullList({
             sort: 'order'
@@ -10,16 +13,18 @@ export const useWelcomeManager = () => {
         return data
     }
 
+    async function update() {
+        const data = await getInternalMessageList()
+        storage.value = data
+        return data
+    }
     async function getMessageList() {
-        const storage = useLocalStorage("welcomeMessageStore", { updated: null, items: [] })
         let shouldUpdate = false
         if (shouldUpdateCache(storage, 120)) {
             shouldUpdate = true
         }
         if (shouldUpdate) {
-            const data = await getInternalMessageList()
-            storage.value = data
-            return data
+            return await update()
         } else {
             if (storage.value.updated !== null) {
                 return storage.value
@@ -33,7 +38,7 @@ export const useWelcomeManager = () => {
             return (await getMessageList()).items
         },
         update: async () => {
-            await getMessageList()
+            await update()
         },
         lastUpdated: () => {
             return storage.value.updated

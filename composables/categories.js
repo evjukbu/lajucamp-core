@@ -2,22 +2,27 @@ import { useLocalStorage } from "@vueuse/core"
 
 export const useCategoryManager = () => {
     const pb = usePocketBase()
+    const storage = useLocalStorage("categoryStore", { updated: null, items: [] })
+
     async function getInternalCategoryList() {
         const response = await pb.collection('categories').getFullList();
         const data = { updated: new Date(), items: response }
         return data
     }
 
+    async function update() {
+        const data = await getInternalCategoryList()
+        storage.value = data
+        return data
+    }
+
     async function getCategoryList() {
-        const storage = useLocalStorage("categoryStore", { updated: null, items: [] })
         let shouldUpdate = false
         if (shouldUpdateCache(storage, 10)) {
             shouldUpdate = true
         }
         if (shouldUpdate) {
-            const data = await getInternalCategoryList()
-            storage.value = data
-            return data
+            return await update()
         } else {
             if (storage.value.updated !== null) {
                 return storage.value
@@ -34,7 +39,7 @@ export const useCategoryManager = () => {
             return (await getCategoryList()).items.find(obj => obj.id === id)
         },
         update: async () => {
-            await getCategoryList()
+            await update()
         },
         lastUpdated: () => {
             return storage.value.updated

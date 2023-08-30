@@ -2,6 +2,8 @@ import { useLocalStorage } from "@vueuse/core"
 
 export const usePageManager = () => {
     const pb = usePocketBase()
+    const storage = useLocalStorage("pageStore", { updated: null, items: [] })
+
     async function getInternalPageList() {
         const response = await pb.collection('pages').getFullList({
             sort: 'order'
@@ -10,16 +12,19 @@ export const usePageManager = () => {
         return data
     }
 
+    async function update() {
+        const data = await getInternalPageList()
+        storage.value = data
+        return data
+    }
+
     async function getPageList() {
-        const storage = useLocalStorage("pageStore", { updated: null, items: [] })
         let shouldUpdate = false
         if (shouldUpdateCache(storage, 120)) {
             shouldUpdate = true
         }
         if (shouldUpdate) {
-            const data = await getInternalPageList()
-            storage.value = data
-            return data
+            await update()
         } else {
             if (storage.value.updated !== null) {
                 return storage.value
@@ -36,7 +41,7 @@ export const usePageManager = () => {
             return (await getPageList()).items.find(obj => obj.id === id)
         },
         update: async () => {
-            await getPageList()
+            await update()
         },
         lastUpdated: () => {
             return storage.value.updated
