@@ -1,14 +1,15 @@
 export const useTheme = () => {
-    const DEFAULT_THEME = "fantasy"
+    const DEFAULT_THEME = "bulabulight"
 
     const cookie = useCookie("theme", { expires: new Date('9999-12-31') })
     const themes = [
-        { name: 'Festival Dunkel - Preview', internal: "bulabu", dark: true },
-        { name: 'Fantasy - Standard', internal: "fantasy", dark: false },
+        { name: 'Festival - Standard', internal: "bulabulight", dark: false },
+        { name: 'Festival Dunkel', internal: "bulabu", dark: true },
+        { name: 'Fantasy', internal: "fantasy", dark: false },
         { name: 'Sonnig', internal: "light", dark: false },
         { name: 'Pastel', internal: "pastel", dark: false },
-        { name: 'Dunkel - Nacht', internal: "dark", dark: true },
-        { name: 'Dunkel - Wald', internal: "forest", dark: true },
+        { name: 'Nacht', internal: "dark", dark: true },
+        { name: 'Wald', internal: "forest", dark: true },
     ]
 
     const ThemeManager = {

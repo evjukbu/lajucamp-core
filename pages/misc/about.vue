@@ -73,7 +73,7 @@
 </template>
 
 <script setup>
-const version = "1.1"
+const version = "1.1.1"
 
 const contributors = [
   {
@@ -111,7 +111,17 @@ const contributors = [
 ]
 const changelog = [
   {
-    date: "30. August 2023 - Version 1.1",
+    date: "31. August 2023 - Version 1.1.1",
+    changes: [
+      "Added: Das Farbdesign \"Festival\" wurde hinzugefügt.",
+      "Fix: Der Cache wird jetzt aktualisiert, wenn die Daten zu alt sind.",
+      "Change: Das Farbdesign \"Festival Dunkel\" befindet sich nicht mehr in der Preview.",
+      "Change: Das Farbdesign \"Festival\" ist nun das Standarddesign.",
+      "Change: Berechtigungsschlüssel können nun den Cache deaktivieren."
+    ]
+  },
+  {
+    date: "30. August 2023 - Version 1.1.0",
     changes: [
       "Added: Das Farbdesign \"Festival Dunkel\" wurde als Preview hinzugefügt.",
       "Added: Die App speichert nun einige Daten im Cache, um die Ladezeiten zu verbessern und offline zuverlässiger zu funktionieren.",
