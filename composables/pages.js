@@ -24,7 +24,7 @@ export const usePageManager = () => {
             shouldUpdate = true
         }
         if (shouldUpdate) {
-            await update()
+            return await update()
         } else {
             if (storage.value.updated !== null) {
                 return storage.value
