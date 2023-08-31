@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <div class="record-list-timestamp">{{ getWeekDayFromIso(props.record.start) }}<br />{{ getStartTimeFromIso(props.record.start) }} -<br/>{{ getEndTimeFromIso(props.record.end) }}</div>
+    <div class="w-12">
+        <div class="record-list-timestamp">{{ getWeekDayFromIso(props.record.start) }}<br />{{
+            getStartTimeFromIso(props.record.start) }} -<br />{{ getEndTimeFromIso(props.record.end) }}</div>
     </div>
-
 </template>
 
 <script setup>

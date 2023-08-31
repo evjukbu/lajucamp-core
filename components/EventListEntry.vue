@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="'/events/' + props.item.id" class="flex items-center py-1 space-x-2">
+    <router-link :to="'/events/' + props.item.id" class="flex items-center py-1 space-x-1">
         <div class="flex flex-col text-sm font-bold">
             <EventListEntryDateContainer :record="props.item" />
         </div>
