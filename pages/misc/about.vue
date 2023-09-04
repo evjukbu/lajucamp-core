@@ -131,7 +131,8 @@ const changelog = [
     changes: [
       "Added: Die Heinrich Dammann Stiftung wird nun als Unterstützer angezeigt.",
       "Change: Unter IOS wird in der Webversion jetzt auf den App Store verlinkt.",
-      "Chagne: Update der Mitwirkenden."
+      "Change: Update der Mitwirkenden.",
+      "Fix: Auf der Homepage werden keine Veranstaltungen mehr angezeigt, die ausgeblendet wurden."
     ]
   },
   {
