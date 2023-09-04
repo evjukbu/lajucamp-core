@@ -59,6 +59,14 @@
     </div>
     <div class="card card-compact w-full bg-base-100 shadow-xl">
       <div class="card-body">
+        <h2 class="card-title">Unterstützt durch</h2>
+        <figure class="flex justify-center">
+          <img src="~assets/hds.png" class="w-1/3" />
+        </figure>
+      </div>
+    </div>
+    <div class="card card-compact w-full bg-base-100 shadow-xl">
+      <div class="card-body">
         <h2 class="card-title">Changelog</h2>
         <div v-for="entry in changelog">
           <span><b>{{ entry.date }}</b></span>
@@ -73,7 +81,7 @@
 </template>
 
 <script setup>
-const version = "1.1.1"
+const version = "1.1.2"
 
 const contributors = [
   {
@@ -93,6 +101,14 @@ const contributors = [
     color: "bg-secondary"
   },
   {
+    initials: "CL",
+    name: "Christian Lerch",
+    tag: "EvJu BuLa",
+    job: "IOS Entwicklung",
+    web: "https://softwareschmiede-lerch.de/",
+    color: "bg-cyan-400"
+  },
+  {
     initials: "LM",
     name: "Lukas Mayrhofer-Reinhartshuber",
     tag: null,
@@ -110,6 +126,14 @@ const contributors = [
   },
 ]
 const changelog = [
+  {
+    date: "04. September 2023 - Version 1.1.2",
+    changes: [
+      "Added: Die Heinrich Dammann Stiftung wird nun als Unterstützer angezeigt.",
+      "Change: Unter IOS wird in der Webversion jetzt auf den App Store verlinkt.",
+      "Chagne: Update der Mitwirkenden."
+    ]
+  },
   {
     date: "31. August 2023 - Version 1.1.1",
     changes: [
