@@ -56,19 +56,6 @@ registerRoute(
 
 registerRoute(
     ({ url }) =>
-        url.pathname.startsWith('/api/collections/welcome_messages') || url.pathname.startsWith('/api/collections/pages'),
-    new CacheFirst({
-        cacheName: 'apiCache',
-        plugins: [
-            new CacheableResponsePlugin({
-                statuses: [0, 200],
-            }),
-        ],
-    })
-);
-
-registerRoute(
-    ({ url }) =>
         url.pathname.startsWith('/api/collections/events') || url.pathname.startsWith('/api/collections/categories') || url.pathname.startsWith('/api/collections/posts') || url.pathname.startsWith('/api/collections/locations'),
     new NetworkFirst({
         cacheName: 'apiCache',
