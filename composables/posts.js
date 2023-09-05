@@ -27,7 +27,7 @@ export const usePostManager = () => {
 
     async function getPostList() {
         let shouldUpdate = false
-        if (shouldUpdateCache(storage, 120)) {
+        if (shouldUpdateCache(storage, 10)) {
             shouldUpdate = true
         }
         if (shouldUpdate) {
