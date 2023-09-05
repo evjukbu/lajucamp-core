@@ -15,13 +15,6 @@
             </svg>
 
         </MenuEntry>
-        <MenuEntry name="Über diese App" to="/misc/about">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-            </svg>
-        </MenuEntry>
 
         <div v-if="records !== []">
             <div v-for="record in records" :key="record.id">
@@ -32,8 +25,29 @@
             </div>
         </div>
 
+        <MenuEntry name="Über diese App" to="/misc/about">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+            </svg>
+        </MenuEntry>
+
+
 
     </ul>
+    <!-- Div that is always at the bottom of the page-->
+
+
+
+
+    <div class="fixed bottom-20 w-full flex flex-col justify-center">
+        <span class="text-center font-light text-sm">Unterstützt durch</span>
+        <figure class="flex justify-center w-full">
+            <img src="~assets/hds.png" class="w-1/4" />
+        </figure>
+
+    </div>
 </template>
 
 <script setup>
