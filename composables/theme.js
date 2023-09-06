@@ -10,7 +10,14 @@ export const useTheme = () => {
     ]
 
     const ThemeManager = {
-        getCurrentTheme: () => cookie.value || DEFAULT_THEME,
+        getCurrentTheme: () => {
+            let theme = cookie.value || DEFAULT_THEME
+            // Check if theme is valid
+            if (!themes.find(t => t.internal === theme)) {
+                theme = DEFAULT_THEME
+            }
+            return theme
+        },
         setTheme: (theme) => cookie.value = theme,
         themeOptions: themes,
         setTheme: (theme) => {
