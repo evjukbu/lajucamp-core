@@ -131,6 +131,7 @@ const changelog = [
     changes: [
       "Change: Veranstaltungen werden nun nach Tagen getrennt aufgelistet.",
       "Change: Wenn keine Posts vorhanden sind, wird nun ein Hinweis angezeigt.",
+      "Change: Berechtigungsschlüssel können nun weitreichendere Auswirkungen haben.",
       "Fix: Die 'Neuster Post'-Karte lädt nun nicht mehr unendlich, wenn keine Posts vorhanden sind.",
       "Fix: Die App aktualisiert nun den Cache, wenn die Daten zu alt sind.",
       "Removed: Die Farbdesigns 'Fantasy', 'Nacht' und 'Sonnig' wurden entfernt.",
