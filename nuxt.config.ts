@@ -55,6 +55,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       pocketbaseUrl: '',
+      saDomain: '',
     }
   },
   pwa: {
