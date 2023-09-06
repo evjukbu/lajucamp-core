@@ -34,11 +34,8 @@ export default defineNuxtConfig({
               "error": "#e94273",
             },
           },
-          "light",
-          "fantasy",
           "pastel",
           "forest",
-          "dark",
         ],
       },
       theme: {

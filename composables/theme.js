@@ -5,10 +5,7 @@ export const useTheme = () => {
     const themes = [
         { name: 'Festival - Standard', internal: "bulabulight", dark: false },
         { name: 'Festival Dunkel', internal: "bulabu", dark: true },
-        { name: 'Fantasy', internal: "fantasy", dark: false },
-        { name: 'Sonnig', internal: "light", dark: false },
         { name: 'Pastel', internal: "pastel", dark: false },
-        { name: 'Nacht', internal: "dark", dark: true },
         { name: 'Wald', internal: "forest", dark: true },
     ]
 
