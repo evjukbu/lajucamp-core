@@ -5,7 +5,7 @@
             <option>Veranstaltungen</option>
             <option>Kategorien</option>
         </select>
-        <EventList v-show="selected === 'Veranstaltungen'" />
+        <SplittedEventList v-show="selected === 'Veranstaltungen'" />
         <CategoryList v-show="selected === 'Kategorien'" />
     </CardLikeContainer>
 </template>

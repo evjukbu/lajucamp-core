@@ -35,6 +35,36 @@ export const useEventManager = () => {
         }
     }
 
+    function groupEventsByDay(events) {
+        // Create an object to hold the grouped events
+        const groupedEvents = {};
+
+        // Iterate through the list of events
+        events.forEach(event => {
+            // Convert the ISO string to a Date object
+            const eventDate = new Date(event.start);
+
+            // Get the day of the week as a string (e.g., "Sunday", "Monday", etc.)
+            const dayOfWeek = eventDate.toLocaleDateString('de-DE', { weekday: 'long' });
+
+            // Check if the day exists in the groupedEvents object, and if not, initialize it as an empty array
+            if (!groupedEvents[dayOfWeek]) {
+                groupedEvents[dayOfWeek] = [];
+            }
+
+            // Add the event to the corresponding day
+            groupedEvents[dayOfWeek].push(event);
+        });
+
+        // Convert the groupedEvents object into an array of objects
+        const result = Object.keys(groupedEvents).map(day => ({
+            day,
+            events: groupedEvents[day],
+        }));
+
+        return result;
+    }
+
     const EventManager = {
         getList: async (limit = -1) => {
             const data = (await getEventList()).items
@@ -67,6 +97,10 @@ export const useEventManager = () => {
         getByCategory: async (id) => {
             const data = (await getEventList()).items.filter(obj => obj.category == id)
             return data
+        },
+        getDayList: async () => {
+            const data = (await getEventList()).items
+            return groupEventsByDay(data)
         },
         update: async () => {
             await update()
