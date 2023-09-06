@@ -1,6 +1,10 @@
 <template>
     <div v-if="posts != null" class="flex flex-col space-y-3">
-        <NewsListCard v-for="post in posts" :key="post.id" :post="post" />
+        <NewsListCard v-if="posts.length > 0" v-for="post in posts" :key="post.id" :post="post" />
+
+        <div v-else class="flex items-center h-screen">
+            <span class="mx-auto text-sm font-light">Aktuell keine Beiträge</span>
+        </div>
     </div>
     <div v-else class="flex items-center h-screen">
         <span class="mx-auto loading loading-dots loading-lg"></span>

@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-const version = "1.1.2"
+const version = "1.2"
 
 const contributors = [
   {
@@ -126,6 +126,16 @@ const contributors = [
   },
 ]
 const changelog = [
+  {
+    date: "06. September 2023 - Version 1.2",
+    changes: [
+      "Change: Veranstaltungen werden nun nach Tagen getrennt aufgelistet.",
+      "Change: Wenn keine Posts vorhanden sind, wird nun ein Hinweis angezeigt.",
+      "Fix: Die 'Neuster Post'-Karte lädt nun nicht mehr unendlich, wenn keine Posts vorhanden sind.",
+      "Fix: Die App aktualisiert nun den Cache, wenn die Daten zu alt sind.",
+      "Removed: Die Farbdesigns 'Fantasy', 'Nacht' und 'Sonnig' wurden entfernt.",
+    ]
+  },
   {
     date: "04. September 2023 - Version 1.1.2",
     changes: [

@@ -1,27 +1,30 @@
 <template>
-    <RouterLink v-if="post !== null" :to="'/posts/' + post.id">
-        <div class="card card-compact bg-base-100 shadow-xl">
-            <div class="card-body">
-                <span class="text-sm font-light">Beitrag veröffentlicht {{ getRelativeTime(new Date(post.created)) }}</span>
-                <h2 class="card-title">
-                    {{ post.title }}
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                        </svg>
+    <div v-if="!empty">
+        <RouterLink v-if="post !== null" :to="'/posts/' + post.id">
+            <div class="card card-compact bg-base-100 shadow-xl">
+                <div class="card-body">
+                    <span class="text-sm font-light">Beitrag veröffentlicht {{ getRelativeTime(new Date(post.created))
+                    }}</span>
+                    <h2 class="card-title">
+                        {{ post.title }}
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                            </svg>
 
-                    </span>
-                </h2>
-                <p>{{ post.description }}</p>
+                        </span>
+                    </h2>
+                    <p>{{ post.description }}</p>
+                </div>
             </div>
-        </div>
-    </RouterLink>
-    <div v-else class="card card-compact bg-base-100 shadow-xl">
-        <div class="card-body flex flex-col">
-            <div class="animate-pulse w-48 bg-gray-300 h-3 rounded-md px-2"></div>
-            <div class="animate-pulse w-36 bg-gray-300 h-7 rounded-md px-2"></div>
-            <div class="animate-pulse w-80 bg-gray-300 h-5 rounded-md px-2"></div>
+        </RouterLink>
+        <div v-else class="card card-compact bg-base-100 shadow-xl">
+            <div class="card-body flex flex-col">
+                <div class="animate-pulse w-48 bg-gray-300 h-3 rounded-md px-2"></div>
+                <div class="animate-pulse w-36 bg-gray-300 h-7 rounded-md px-2"></div>
+                <div class="animate-pulse w-80 bg-gray-300 h-5 rounded-md px-2"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -51,12 +54,14 @@ var getRelativeTime = (d2) => {
 }
 
 const post = ref(null)
-
+const empty = ref(false)
 onMounted(async () => {
     const resultList = await postManager.getList(1)
     console.log(resultList)
     if (resultList.length > 0) {
         post.value = resultList[0]
+    } else {
+        empty.value = true
     }
     console.log(post.value)
 })
