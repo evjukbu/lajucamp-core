@@ -2,17 +2,18 @@
     <div v-if="post != null">
         <CardLikeContainer>
             <h1 class="text-3xl">{{ post.title }}</h1>
-        <span class="text-sm font-light">{{ getRelativeTime(new Date(post.created)) }}</span>
-        <div class="bg-base-100 shadow-xl rounded-xl">
-            <figure><img class="rounded-xl" :src="pb.files.getUrl(post, post.image)" alt="Shoes" /></figure>
-        </div>
-        <p class="prose" v-html="post.text"></p>
+            <span class="text-sm font-light">{{ post.author }} veröffentlichte {{ getRelativeTime(new Date(post.created))
+            }}</span>
+            <div class="bg-base-100 shadow-xl rounded-xl">
+                <figure><img class="rounded-xl" :src="pb.files.getUrl(post, post.image)" alt="Image" /></figure>
+            </div>
+            <p class="prose" v-html="post.text"></p>
         </CardLikeContainer>
 
     </div>
     <div v-else class="flex items-center h-screen">
         <span class="mx-auto loading loading-dots loading-lg"></span>
-</div>
+    </div>
 </template>
 
 <script setup>

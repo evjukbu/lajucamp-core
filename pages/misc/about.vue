@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-const version = "1.2.2"
+const version = useVersion()
 
 const contributors = [
   {
@@ -126,6 +126,13 @@ const contributors = [
   },
 ]
 const changelog = [
+  {
+    date: "08. September 2023 - Version 1.3.0",
+    changes: [
+      "Added: News haben jetzt einen Autor",
+      "Change: Interne Änderungen",
+    ]
+  },
   {
     date: "08. September 2023 - Version 1.2.2",
     changes: [
