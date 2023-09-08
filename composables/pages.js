@@ -20,7 +20,7 @@ export const usePageManager = () => {
 
     async function getPageList() {
         let shouldUpdate = false
-        if (shouldUpdateCache(storage, 5)) {
+        if (shouldUpdateCache(storage, 120)) {
             shouldUpdate = true
         }
         if (shouldUpdate) {

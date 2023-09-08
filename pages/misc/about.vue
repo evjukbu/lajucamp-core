@@ -130,6 +130,8 @@ const changelog = [
     date: "08. September 2023 - Version 1.2.2",
     changes: [
       "Change: Der Cache für Veranstaltungen wird nun nur noch alle 60 Minuten aktualisiert.",
+      "Change: Der Cache für Seiten wird nun nur noch alle 120 Minuten aktualisiert.",
+      "Change: Der Cache für Homepage Banner wird nun schon alle 60 Minuten aktualisiert.",
     ]
   },
   {
