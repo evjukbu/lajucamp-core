@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-const version = "1.2.1"
+const version = "1.2.2"
 
 const contributors = [
   {
@@ -126,6 +126,12 @@ const contributors = [
   },
 ]
 const changelog = [
+  {
+    date: "08. September 2023 - Version 1.2.2",
+    changes: [
+      "Change: Der Cache für Veranstaltungen wird nun nur noch alle 60 Minuten aktualisiert.",
+    ]
+  },
   {
     date: "08. September 2023 - Version 1.2.1",
     changes: [
