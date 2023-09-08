@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-const version = "1.2"
+const version = "1.2.1"
 
 const contributors = [
   {
@@ -126,6 +126,12 @@ const contributors = [
   },
 ]
 const changelog = [
+  {
+    date: "08. September 2023 - Version 1.2.1",
+    changes: [
+      "Fix: Es gibt jetzt einen Abstand zwischen mehreren Seiten im Liederbuch.",
+    ]
+  },
   {
     date: "06. September 2023 - Version 1.2",
     changes: [

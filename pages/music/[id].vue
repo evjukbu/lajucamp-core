@@ -5,7 +5,7 @@
             <h1 class="text-3xl">{{ song.name }}</h1>
             <span class="font-light text-sm">{{ song.author }}</span>
         </CardLikeContainer>
-        <img v-for="image in song.image" class="rounded-xl" :src="pb.files.getUrl(song, image)" alt="Bild" />
+        <img v-for="image in song.image" class="rounded-xl pb-3" :src="pb.files.getUrl(song, image)" alt="Bild" />
 
     </div>
 </template>
