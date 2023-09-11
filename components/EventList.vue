@@ -1,6 +1,7 @@
 <template>
     <div v-if="records != null">
-        <EventListEntry v-for="item in records" :key="item.id" :item="item" />
+        <EventListEntry v-if="records.length > 0" v-for="item in records" :key="item.id" :item="item" />
+        <span class="text-sm font-light text-center" v-else>Aktuell keine Veranstaltungen</span>
     </div>
     <div v-else>
         <EventListEntrySkeleton v-for="i in (parseInt((props.limit !== undefined) ? props.limit : 8))" :key="i" />
