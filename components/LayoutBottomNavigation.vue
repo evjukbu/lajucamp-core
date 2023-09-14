@@ -85,7 +85,8 @@ const routes = {
         'misc-settings-appearance',
         'misc-page-id',
         'misc-about',
-        'misc-install'
+        'misc-install',
+        "pictures"
     ]
 }
 

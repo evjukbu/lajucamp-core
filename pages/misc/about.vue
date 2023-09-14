@@ -127,6 +127,18 @@ const contributors = [
 ]
 const changelog = [
   {
+    date: "14. September 2023 - Version 1.4.0",
+    changes: [
+      "Added: Mit einem Berechtigungsschlüssel kann nun eine Fotogalerie angezeigt werden.",
+    ]
+  },
+  {
+    date: "11. September 2023 - Version 1.3.1",
+    changes: [
+      "Change: Es wird nun eine Nachricht angezeigt, wenn keine zukünftigen Veranstaltungen vorhanden sind."
+    ]
+  },
+  {
     date: "08. September 2023 - Version 1.3.0",
     changes: [
       "Added: News haben jetzt einen Autor",
