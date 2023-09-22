@@ -127,6 +127,12 @@ const contributors = [
 ]
 const changelog = [
   {
+    date: "22. September 2023 - Version 1.5.0",
+    changes: [
+      "Added: Vergangene Veranstaltungen können nun ausgeblendet werden.",
+    ]
+  },
+  {
     date: "14. September 2023 - Version 1.4.0",
     changes: [
       "Added: Mit einem Berechtigungsschlüssel kann nun eine Fotogalerie angezeigt werden.",
