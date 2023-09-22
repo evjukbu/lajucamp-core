@@ -35,12 +35,20 @@ export const useEventManager = () => {
         }
     }
 
-    function groupEventsByDay(events) {
+    function checkIsPast(event) {
+        return (new Date(event.end)).getTime() > (new Date()).getTime()
+    }
+
+    function groupEventsByDay(events, skipPast = false) {
         // Create an object to hold the grouped events
         const groupedEvents = {};
 
         // Iterate through the list of events
         events.forEach(event => {
+            // Skip past events if the skipPast argument is true
+            if (skipPast && !checkIsPast(event)) {
+                return
+            }
             // Convert the ISO string to a Date object
             const eventDate = new Date(event.start);
 
@@ -98,9 +106,10 @@ export const useEventManager = () => {
             const data = (await getEventList()).items.filter(obj => obj.category == id)
             return data
         },
-        getDayList: async () => {
-            const data = (await getEventList()).items
-            return groupEventsByDay(data)
+        getDayList: async (skipPast = false) => {
+            console.log(skipPast)
+            const data = (await getEventList(skipPast)).items
+            return groupEventsByDay(data, skipPast)
         },
         update: async () => {
             await update()
