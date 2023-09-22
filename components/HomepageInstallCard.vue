@@ -29,7 +29,7 @@ const supported = ref(true)
 const target = ref("/")
 if (device.isIos) {
   deviceName.value = "iPhone"
-  target.value = "/misc/install"
+  target.value = "https://apps.apple.com/de/app/bulabu-jugendfestival/id6463813545"
 } else {
   if (device.isAndroid) {
     deviceName.value = "Android"
