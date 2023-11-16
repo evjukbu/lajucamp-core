@@ -56,14 +56,17 @@ export default defineNuxtConfig({
     public: {
       pocketbaseUrl: '',
       saDomain: '',
+      title: '',
+      short_title: '',
+      description: ''
     }
   },
   pwa: {
     manifest: {
-      name: "Jugendfestival 2023",
-      short_name: "Festival",
+      name: process.env.NUXT_PUBLIC_TITLE,
+      short_name: process.env.NUXT_PUBLIC_SHORT_TITLE,
       lang: "de",
-      description: "Die offizielle Begleitapp zum Festival der Kirchenkreise Burgdorf und Burgwedel-Langenhagen."
+      description: process.env.NUXT_PUBLIC_DESCRIPTION
     },
     icon: {
       purpose: 'maskable'

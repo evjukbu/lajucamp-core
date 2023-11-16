@@ -5,7 +5,7 @@
   <div class="flex flex-col space-y-3">
     <div class="card card-compact w-full bg-base-100 shadow-xl">
       <div class="card-body">
-        <h2 class="card-title">Jugendfestival App Version {{ version }}</h2>
+        <h2 class="card-title">{{ config.public.title }} App Version {{ version }}</h2>
         <figure class="flex justify-center">
           <img v-if="theme.isDark()" src="~assets/ejkkbu_darkmode.png" class="w-1/3" />
           <img v-else src="~assets/ejkkbu.png" class="w-1/3" />
@@ -126,6 +126,13 @@ const contributors = [
   },
 ]
 const changelog = [
+  {
+    date: "16. November 2023 - Version 1.6.0",
+    changes: [
+      "Added: Der Name der App kann nun beim Kompilieren geändert werden.",
+      "Breaking: Neue Variablen werden beim Kompilieren benötigt."
+    ]
+  },
   {
     date: "22. September 2023 - Version 1.5.0",
     changes: [
@@ -275,4 +282,5 @@ const changelog = [
 ]
 
 const theme = useTheme()
+const config = useRuntimeConfig()
 </script>

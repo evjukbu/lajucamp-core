@@ -2,7 +2,7 @@
     <div class="header">
         <div class="navbar bg-base-100">
             <div class="flex-1">
-                <a class="btn btn-ghost normal-case text-xl p-2">Jugendfestival</a>
+                <a class="btn btn-ghost normal-case text-xl p-2">{{ runtimeConfig.public.title }}</a>
             </div>
             <div class="flex-none">
                 <router-link to="/search">
@@ -21,3 +21,8 @@
         </div>
     </div>
 </template>
+
+
+<script setup>
+const runtimeConfig = useRuntimeConfig()
+</script>
