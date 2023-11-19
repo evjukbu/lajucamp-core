@@ -150,7 +150,7 @@ const changelog = [
     date: "November 2023 - Version 1.6.0",
     changes: [
       "Added: Der Name der App kann nun beim Kompilieren geändert werden.",
-      "Added: Veranstaltungen können nun einem Team zugeordnet werden."
+      "Added: Veranstaltungen können nun einem Team zugeordnet werden.",
       "Breaking: Neue Variablen werden beim Kompilieren benötigt.",
       "Fix: Kategorieansicht und Veranstaltungsansicht überlappen nicht mehr",
       "Change: Neue Versionen von Abhängigkeiten werden verwendet."
