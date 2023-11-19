@@ -87,7 +87,7 @@ const contributors = [
   {
     initials: "AB",
     name: "Anne Basedau",
-    tag: "EvJu Bula",
+    tag: "EvJu BuLa",
     job: "Projektbegleitung",
     insta: "https://instagram.com/annebasedau",
     color: "bg-red-400"
@@ -127,10 +127,11 @@ const contributors = [
 ]
 const changelog = [
   {
-    date: "16. November 2023 - Version 1.6.0",
+    date: "November 2023 - Version 1.6.0",
     changes: [
       "Added: Der Name der App kann nun beim Kompilieren geändert werden.",
-      "Breaking: Neue Variablen werden beim Kompilieren benötigt."
+      "Breaking: Neue Variablen werden beim Kompilieren benötigt.",
+      "Fix: Kategorieansicht und Veranstaltungsansicht überlappen nicht mehr"
     ]
   },
   {

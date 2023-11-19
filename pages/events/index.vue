@@ -5,11 +5,19 @@
             <option>Veranstaltungen</option>
             <option>Kategorien</option>
         </select>
-        <SplittedEventList v-show="selected === 'Veranstaltungen'" />
-        <CategoryList v-show="selected === 'Kategorien'" />
+        <SplittedEventList v-if="getViewMode() === 0" />
+        <CategoryList v-if="getViewMode() === 1" />
     </CardLikeContainer>
 </template>
 
 <script setup>
 const selected = ref("Veranstaltungen")
+
+function getViewMode() {
+    if (selected.value === "Veranstaltungen") {
+        return 0
+    } else {
+        return 1
+    }
+}
 </script>
