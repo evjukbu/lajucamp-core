@@ -74,8 +74,13 @@ export const useEventManager = () => {
     }
 
     const EventManager = {
-        getList: async (limit = -1) => {
-            const data = (await getEventList()).items
+        getList: async (limit = -1, team = null) => {
+            let data;
+            if (team === null) {
+                data = (await getEventList()).items
+            } else {
+                data = (await getEventList()).items.filter(obj => obj.team === team)
+            }
             if (limit === -1) {
                 return data
             } else {
