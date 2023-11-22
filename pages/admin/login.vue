@@ -42,7 +42,7 @@
             v-model="password"
             class="input input-bordered w-full"
           />
-          <span class="btn mt-8 w-full" @click="login()">Anmelden</span>
+          <span class="btn btn-secondary mt-8 w-full" @click="login()">Anmelden</span>
           <span v-if="wrong" class="font-light text-red-600 text-sm"
             >Falsche Zugansdaten.</span
           >
