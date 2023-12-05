@@ -109,7 +109,7 @@
             PocketBase Admin</a
           >
         </li>
-        <li>
+        <li @click="logout()">
           <a
             ><svg
               xmlns="http://www.w3.org/2000/svg"
@@ -139,6 +139,7 @@
 <script setup>
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
+const pb = usePocketBase();
 
 function checkActiveMenu(name) {
   if (route.name === name) {
@@ -146,5 +147,10 @@ function checkActiveMenu(name) {
   } else {
     return "";
   }
+}
+
+function logout() {
+  pb.authStore.clear();
+  return navigateTo("/admin/login");
 }
 </script>
