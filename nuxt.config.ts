@@ -20,7 +20,7 @@ export default defineNuxtConfig({
               "info": "#eb5c9d",
               "success": "#fccb83",
               "warning": "#f29277",
-              "error": "#e94273",
+              "error": "#dc2626",
             },
             bulabulight: {
               "primary": "#b70f65",
@@ -31,7 +31,7 @@ export default defineNuxtConfig({
               "info": "#eb5c9d",
               "success": "#fccb83",
               "warning": "#f29277",
-              "error": "#e94273",
+              "error": "#dc2626",
             },
           },
           "pastel",
