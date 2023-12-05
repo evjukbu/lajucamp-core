@@ -38,7 +38,8 @@
             />
           </svg>
         </button>
-        <h3 class="font-bold text-lg">Neue Veranstaltung</h3>
+        <h3 v-if="action === 0" class="font-bold text-lg">Neue Veranstaltung</h3>
+        <h3 v-if="action === 1" class="font-bold text-lg">Veranstaltung bearbeiten</h3>
         <div class="py-4">
           <div class="label">
             <span class="label-text">Veranstaltungstitel</span>
@@ -118,12 +119,15 @@
             <span class="label-text">Beschreibung</span>
           </div>
           <quill-editor
+            id="quill"
             class="h-48 min-h-48 pt-3"
             theme="snow"
             toolbar="full"
             contentType="html"
             v-model:content="description"
+            :content="description"
             :enable="!submitting"
+            v-if="modalIsOpen"
           ></quill-editor>
           <div class="form-control">
             <label class="label cursor-pointer">
@@ -154,7 +158,7 @@
               category === null ||
               submitting
             "
-            @click="saveNew()"
+            @click="save()"
           >
             <div v-if="submitting">
               <span v-if="submitting" class="loading loading-spinner loading-xs"></span>
@@ -165,10 +169,41 @@
         </div>
       </div>
     </dialog>
+    <dialog id="my_modal_2" class="modal">
+      <div class="modal-box">
+        <button
+          class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+          @click="closeDeleteDialog()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            class="w-5 h-5"
+          >
+            <path
+              d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
+            />
+          </svg>
+        </button>
+        <h3 class="font-bold text-lg">Diese Veranstaltung wirklich löschen?</h3>
+        <div class="py-4">Dieser Vorgang kann nicht rückgängig gemacht werden.</div>
+        <div class="modal-action">
+          <button class="btn pr-3" @click="closeDeleteDialog()">Abbrechen</button>
+          <button :disabled="submitting" class="btn btn-error" @click="confirmDelete()">
+            <div v-if="submitting">
+              <span class="loading loading-spinner loading-xs"></span>
+              Übertragen...
+            </div>
+            <div v-else>Löschen</div>
+          </button>
+        </div>
+      </div>
+    </dialog>
   </AdminLayoutHeader>
   <div class="pl-3">
     <div class="overflow-x-auto">
-      <table class="table">
+      <table v-if="data !== null && data.length > 0" class="table">
         <!-- head -->
         <thead>
           <tr>
@@ -180,8 +215,8 @@
             <th />
           </tr>
         </thead>
-        <tbody v-if="data !== null">
-          <tr v-for="event in data">
+        <tbody>
+          <tr v-for="(event, index) in data" :key="index">
             <td>
               <div class="flex items-center gap-3">
                 <div>
@@ -248,7 +283,10 @@
               }}
             </td>
             <td class="flex flex-row space-x-1">
-              <div class="group btn btn-square btn-ghost hover:bg-blue-400">
+              <button
+                @click="edit(event)"
+                class="group btn btn-square btn-ghost hover:bg-cyan-600"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -263,8 +301,11 @@
                     d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
                   />
                 </svg>
-              </div>
-              <div class="group btn btn-square btn-ghost hover:bg-red-400">
+              </button>
+              <button
+                @click="deleteDialog(index)"
+                class="group btn btn-square btn-ghost hover:bg-red-600"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -279,7 +320,7 @@
                     d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                   />
                 </svg>
-              </div>
+              </button>
             </td>
           </tr>
         </tbody>
@@ -295,6 +336,20 @@
           </tr>
         </tfoot>
       </table>
+      <div v-if="data.length === 0">
+        <div class="hero">
+          <div class="hero-content text-center">
+            <div class="max-w-md">
+              <h1 class="text-2xl">Keine Daten verfügbar.</h1>
+              <p class="py-6">
+                Derzeit existieren keine Veranstaltungen, für die du Zugriffsrechte
+                besitzt. Überprüfe, ob du dem richtigen Sprengel zugeordnet bist oder lege
+                eine neue Veranstaltung an.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -338,10 +393,16 @@ const category = ref(null);
 const location = ref(null);
 const start = ref(null);
 const end = ref(null);
-const description = ref(null);
+const description = ref("");
 const show_homepage = ref(true);
 const team = pb.authStore.model.team;
 const submitting = ref(false);
+
+// 0: Create, 1: Edit
+let action = -1;
+const modalIsOpen = ref(false);
+let selectedId = -1;
+let selectedIndex = -1;
 
 function reset() {
   name.value = null;
@@ -349,7 +410,7 @@ function reset() {
   location.value = null;
   start.value = null;
   end.value = null;
-  description.value = null;
+  description.value = "";
   show_homepage.value = true;
 }
 
@@ -366,23 +427,88 @@ function assembleEvent() {
   };
 }
 function openCreateDialog() {
+  action = 0;
+  modalIsOpen.value = true;
+
+  my_modal_1.showModal();
+  console.log(description.value);
+}
+
+function edit(event) {
+  name.value = event.name;
+  category.value = event.category;
+  location.value = event.location;
+  start.value = event.start;
+  end.value = event.end;
+  description.value = event.description;
+  show_homepage.value = !event.homepage_ignore;
+  selectedId = event.id;
+  action = 1;
+  modalIsOpen.value = true;
   my_modal_1.showModal();
 }
-
 function closeDialog() {
   reset();
+  modalIsOpen.value = false;
   my_modal_1.close();
 }
-
+async function save() {
+  if (action === 0) {
+    await saveNew();
+  }
+  if (action === 1) {
+    await saveEdited();
+  }
+}
 async function saveNew() {
   submitting.value = true;
   const created = await pb.collection("events").create(assembleEvent());
-  submitting.value = false;
-  const record = await pb.collection("events").getOne(created.id, {
+  data.value = await pb.collection("events").getFullList({
+    sort: "start",
+    filter: 'team="' + pb.authStore.model.team + '"',
     expand: "location,category",
   });
-  data.value.push(record);
+  submitting.value = false;
   closeDialog();
   return record;
+}
+
+async function saveEdited() {
+  submitting.value = true;
+  const updated = await pb.collection("events").update(selectedId, assembleEvent());
+  data.value = await pb.collection("events").getFullList({
+    sort: "start",
+    filter: 'team="' + pb.authStore.model.team + '"',
+    expand: "location,category",
+  });
+  submitting.value = false;
+  closeDialog();
+  return record;
+}
+
+function deleteDialog(index) {
+  my_modal_2.showModal();
+  selectedIndex = index;
+  selectedId = data.value[index].id;
+}
+
+function closeDeleteDialog() {
+  my_modal_2.close();
+  selectedId = -1;
+  selectedIndex = -1;
+}
+
+async function confirmDelete() {
+  submitting.value = true;
+  const record = await pb.collection("events").getOne(selectedId, {});
+  console.log(record);
+  await pb.collection("events").delete(record.id);
+  data.value = await pb.collection("events").getFullList({
+    sort: "start",
+    filter: 'team="' + pb.authStore.model.team + '"',
+    expand: "location,category",
+  });
+  closeDeleteDialog();
+  submitting.value = false;
 }
 </script>
