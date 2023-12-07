@@ -223,6 +223,22 @@
   </AdminLayoutHeader>
   <div class="pl-3">
     <div class="overflow-x-auto">
+      <div v-if="pb.authStore.model.manageAllEvents" role="alert" class="alert alert-warning mb-3">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z" />
+  </svg>
+
+          <span>Du bist berrechtigt, Veranstaltungen aller Sprengel zu bearbeiten. Wir gehen davon aus, dass der Administrator dir die
+  Regeln erklärt hat. Normalerweise läuft es auf zwei Regeln hinaus:<br />
+          <ol>
+            <li>#1) Denke nach, bevor du tippst.</li>
+            <li>#2) Mit großer Macht kommt große Verantwortung.</li>
+          </ol>
+        </span>
+        <p>
+        
+      </p>
+      </div>
       <table v-if="data !== null && data.length > 0" class="table">
         <!-- head -->
         <thead>
@@ -232,7 +248,7 @@
             <th>Ort</th>
             <th>Start</th>
             <th>Ende</th>
-            <th>Sprengel</th>
+            <th v-if="pb.authStore.model.manageAllEvents">Sprengel</th>
             <th />
           </tr>
         </thead>
@@ -304,7 +320,7 @@
               }}
             </td>
             <td>
-              <div v-if="event.team !== null">
+              <div v-if="event.team !== null && pb.authStore.model.manageAllEvents">
                 <TeamNote :team="event.team" />
               </div>
             </td>
@@ -358,7 +374,7 @@
             <th>Ort</th>
             <th>Start</th>
             <th>Ende</th>
-            <th>Sprengel</th>
+            <th v-if="pb.authStore.model.manageAllEvents">Sprengel</th>
             <th />
           </tr>
         </tfoot>
@@ -458,7 +474,7 @@ function assembleEvent() {
   if (pb.authStore.model.manageAllEvents) {
     userTeam = team.value
   } else {
-    userTeam = pb.auth.model.team
+    userTeam = pb.authStore.model.team
   }
   return {
     name: name.value,
