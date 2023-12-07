@@ -51,6 +51,26 @@
             :disabled="submitting"
             v-model="name"
           />
+          <div class="my-3" v-if="pb.authStore.model.manageAllEvents">
+            <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text">Sprengel</span>
+                </div>
+                <select
+                  v-model="team"
+                  class="select select-bordered"
+                  :disabled="submitting"
+                >
+                  <option
+                    v-for="team in teams"
+                    :key="team.id"
+                    :value="team.id"
+                  >
+                    {{ team.name }}
+                  </option>
+                </select>
+              </label>
+          </div>
           <div class="flex flex-row space-x-3 my-3">
             <div class="w-full">
               <div class="label">
@@ -212,6 +232,7 @@
             <th>Ort</th>
             <th>Start</th>
             <th>Ende</th>
+            <th>Sprengel</th>
             <th />
           </tr>
         </thead>
@@ -263,9 +284,9 @@
             <td>
               {{
                 new Intl.DateTimeFormat("de", {
-                  weekday: "long",
+                  weekday: "short",
                   day: "numeric",
-                  month: "long",
+                  month: "short",
                   hour: "numeric",
                   minute: "numeric",
                 }).format(new Date(event.start))
@@ -274,13 +295,18 @@
             <td>
               {{
                 new Intl.DateTimeFormat("de", {
-                  weekday: "long",
+                  weekday: "short",
                   day: "numeric",
-                  month: "long",
+                  month: "short",
                   hour: "numeric",
                   minute: "numeric",
                 }).format(new Date(event.end))
               }}
+            </td>
+            <td>
+              <div v-if="event.team !== null">
+                <TeamNote :team="event.team" />
+              </div>
             </td>
             <td class="flex flex-row space-x-1">
               <button
@@ -332,6 +358,7 @@
             <th>Ort</th>
             <th>Start</th>
             <th>Ende</th>
+            <th>Sprengel</th>
             <th />
           </tr>
         </tfoot>
@@ -366,15 +393,15 @@ definePageMeta({
 });
 const pb = usePocketBase();
 const data = ref(null);
-data.value = await pb.collection("events").getFullList({
-  sort: "start",
-  filter: 'team="' + pb.authStore.model.team + '"',
-  expand: "location,category",
-});
+await getAllEvents()
 const categories = await pb.collection("categories").getFullList({
   sort: "name",
 });
 const locations = await pb.collection("locations").getFullList({
+  sort: "name",
+});
+
+const teams = await pb.collection("teams").getFullList({
   sort: "name",
 });
 
@@ -395,7 +422,7 @@ const start = ref(null);
 const end = ref(null);
 const description = ref("");
 const show_homepage = ref(true);
-const team = pb.authStore.model.team;
+const team = ref(null)
 const submitting = ref(false);
 
 // 0: Create, 1: Edit
@@ -403,6 +430,17 @@ let action = -1;
 const modalIsOpen = ref(false);
 let selectedId = -1;
 let selectedIndex = -1;
+
+async function getAllEvents() {
+  let payload = {
+    sort: "start",
+    expand: "location,category,team",
+  }
+  if (!pb.authStore.model.manageAllEvents) {
+    payload.filter = 'team="' + pb.authStore.model.team + '"'
+  }
+  data.value = await pb.collection("events").getFullList(payload);
+}
 
 function reset() {
   name.value = null;
@@ -412,9 +450,16 @@ function reset() {
   end.value = null;
   description.value = "";
   show_homepage.value = true;
+  team.value = null
 }
 
 function assembleEvent() {
+  let userTeam = null
+  if (pb.authStore.model.manageAllEvents) {
+    userTeam = team.value
+  } else {
+    userTeam = pb.auth.model.team
+  }
   return {
     name: name.value,
     category: category.value,
@@ -423,7 +468,7 @@ function assembleEvent() {
     end: end.value,
     description: description.value,
     homepage_ignore: !show_homepage.value,
-    team: team,
+    team: userTeam,
   };
 }
 function openCreateDialog() {
@@ -442,6 +487,9 @@ function edit(event) {
   end.value = event.end;
   description.value = event.description;
   show_homepage.value = !event.homepage_ignore;
+  if (pb.authStore.model.manageAllEvents) {
+    team.value = event.team
+  }
   selectedId = event.id;
   action = 1;
   modalIsOpen.value = true;
@@ -463,11 +511,7 @@ async function save() {
 async function saveNew() {
   submitting.value = true;
   const created = await pb.collection("events").create(assembleEvent());
-  data.value = await pb.collection("events").getFullList({
-    sort: "start",
-    filter: 'team="' + pb.authStore.model.team + '"',
-    expand: "location,category",
-  });
+  await getAllEvents()
   submitting.value = false;
   closeDialog();
   return record;
@@ -476,14 +520,9 @@ async function saveNew() {
 async function saveEdited() {
   submitting.value = true;
   const updated = await pb.collection("events").update(selectedId, assembleEvent());
-  data.value = await pb.collection("events").getFullList({
-    sort: "start",
-    filter: 'team="' + pb.authStore.model.team + '"',
-    expand: "location,category",
-  });
+  await getAllEvents()
   submitting.value = false;
   closeDialog();
-  return record;
 }
 
 function deleteDialog(index) {
@@ -503,11 +542,7 @@ async function confirmDelete() {
   const record = await pb.collection("events").getOne(selectedId, {});
   console.log(record);
   await pb.collection("events").delete(record.id);
-  data.value = await pb.collection("events").getFullList({
-    sort: "start",
-    filter: 'team="' + pb.authStore.model.team + '"',
-    expand: "location,category",
-  });
+  await getAllEvents()
   closeDeleteDialog();
   submitting.value = false;
 }
