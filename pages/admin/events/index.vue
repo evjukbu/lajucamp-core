@@ -53,23 +53,19 @@
           />
           <div class="my-3" v-if="pb.authStore.model.manageAllEvents">
             <label class="form-control w-full">
-                <div class="label">
-                  <span class="label-text">Sprengel</span>
-                </div>
-                <select
-                  v-model="team"
-                  class="select select-bordered"
-                  :disabled="submitting"
-                >
-                  <option
-                    v-for="team in teams"
-                    :key="team.id"
-                    :value="team.id"
-                  >
-                    {{ team.name }}
-                  </option>
-                </select>
-              </label>
+              <div class="label">
+                <span class="label-text">Sprengel</span>
+              </div>
+              <select
+                v-model="team"
+                class="select select-bordered"
+                :disabled="submitting"
+              >
+                <option v-for="team in teams" :key="team.id" :value="team.id">
+                  {{ team.name }}
+                </option>
+              </select>
+            </label>
           </div>
           <div class="flex flex-row space-x-3 my-3">
             <div class="w-full">
@@ -223,21 +219,36 @@
   </AdminLayoutHeader>
   <div class="pl-3">
     <div class="overflow-x-auto">
-      <div v-if="pb.authStore.model.manageAllEvents" role="alert" class="alert alert-warning mb-3">
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z" />
-  </svg>
+      <div
+        v-if="pb.authStore.model.manageAllEvents"
+        role="alert"
+        class="alert alert-warning mb-3"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z"
+          />
+        </svg>
 
-          <span>Du bist berrechtigt, Veranstaltungen aller Sprengel zu bearbeiten. Wir gehen davon aus, dass der Administrator dir die
-  Regeln erklärt hat. Normalerweise läuft es auf zwei Regeln hinaus:<br />
+        <span
+          >Du bist berrechtigt, Veranstaltungen aller Sprengel zu bearbeiten. Wir gehen
+          davon aus, dass der Administrator dir die Regeln erklärt hat. Normalerweise
+          läuft es auf zwei Regeln hinaus:<br />
           <ol>
             <li>#1) Denke nach, bevor du tippst.</li>
             <li>#2) Mit großer Macht kommt große Verantwortung.</li>
           </ol>
         </span>
-        <p>
-        
-      </p>
+        <p></p>
       </div>
       <table v-if="data !== null && data.length > 0" class="table">
         <!-- head -->
@@ -409,7 +420,7 @@ definePageMeta({
 });
 const pb = usePocketBase();
 const data = ref(null);
-await getAllEvents()
+await getAllEvents();
 const categories = await pb.collection("categories").getFullList({
   sort: "name",
 });
@@ -438,7 +449,7 @@ const start = ref(null);
 const end = ref(null);
 const description = ref("");
 const show_homepage = ref(true);
-const team = ref(null)
+const team = ref(null);
 const submitting = ref(false);
 
 // 0: Create, 1: Edit
@@ -451,9 +462,9 @@ async function getAllEvents() {
   let payload = {
     sort: "start",
     expand: "location,category,team",
-  }
+  };
   if (!pb.authStore.model.manageAllEvents) {
-    payload.filter = 'team="' + pb.authStore.model.team + '"'
+    payload.filter = 'team="' + pb.authStore.model.team + '"';
   }
   data.value = await pb.collection("events").getFullList(payload);
 }
@@ -466,15 +477,15 @@ function reset() {
   end.value = null;
   description.value = "";
   show_homepage.value = true;
-  team.value = null
+  team.value = null;
 }
 
 function assembleEvent() {
-  let userTeam = null
+  let userTeam = null;
   if (pb.authStore.model.manageAllEvents) {
-    userTeam = team.value
+    userTeam = team.value;
   } else {
-    userTeam = pb.authStore.model.team
+    userTeam = pb.authStore.model.team;
   }
   return {
     name: name.value,
@@ -504,7 +515,7 @@ function edit(event) {
   description.value = event.description;
   show_homepage.value = !event.homepage_ignore;
   if (pb.authStore.model.manageAllEvents) {
-    team.value = event.team
+    team.value = event.team;
   }
   selectedId = event.id;
   action = 1;
@@ -527,7 +538,7 @@ async function save() {
 async function saveNew() {
   submitting.value = true;
   const created = await pb.collection("events").create(assembleEvent());
-  await getAllEvents()
+  await getAllEvents();
   submitting.value = false;
   closeDialog();
   return record;
@@ -536,7 +547,7 @@ async function saveNew() {
 async function saveEdited() {
   submitting.value = true;
   const updated = await pb.collection("events").update(selectedId, assembleEvent());
-  await getAllEvents()
+  await getAllEvents();
   submitting.value = false;
   closeDialog();
 }
@@ -558,7 +569,7 @@ async function confirmDelete() {
   const record = await pb.collection("events").getOne(selectedId, {});
   console.log(record);
   await pb.collection("events").delete(record.id);
-  await getAllEvents()
+  await getAllEvents();
   closeDeleteDialog();
   submitting.value = false;
 }
