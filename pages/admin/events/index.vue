@@ -240,7 +240,7 @@
         </svg>
 
         <span
-          >Du bist berrechtigt, Veranstaltungen aller Sprengel zu bearbeiten. Wir gehen
+          >Du bist berechtigt, Veranstaltungen aller Sprengel zu bearbeiten. Wir gehen
           davon aus, dass der Administrator dir die Regeln erklärt hat. Normalerweise
           läuft es auf zwei Regeln hinaus:<br />
           <ol>

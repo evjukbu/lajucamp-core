@@ -138,7 +138,7 @@
         </svg>
 
         <span
-          >Du bist berrechtigt, alle Kategorien zu bearbeiten. Dabei kannst du bestehende
+          >Du bist berechtigt, alle Kategorien zu bearbeiten. Dabei kannst du bestehende
           Veranstaltungen zerstören. Wir gehen davon aus, dass der Administrator dir die
           Regeln erklärt hat. Normalerweise läuft es auf zwei Regeln hinaus:<br />
           <ol>
