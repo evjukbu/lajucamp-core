@@ -99,8 +99,32 @@
         </button>
         <h3 class="font-bold text-lg">Diese Kategorie wirklich löschen?</h3>
         <div class="py-4">
-          Dieser Vorgang kann nicht rückgängig gemacht werden. Bestehende Veranstaltungen
-          können beschädigt werden.
+          <div v-if="error" role="alert" class="alert alert-error mb-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+              />
+            </svg>
+
+            <div>
+              Die Kategorie konnte nicht gelöscht werden. Stelle sicher, dass keine
+              Veranstaltung auf diese Kategorie verweist und versuche es erneut.
+              <DevOnly>
+                <span class="mt-4">{{ errorMessage }} </span>
+              </DevOnly>
+            </div>
+          </div>
+          Dieser Vorgang kann nicht rückgängig gemacht werden. Es darf keine Veranstaltung
+          existieren, die diese Kategorie verwendet.
         </div>
         <div class="modal-action">
           <button class="btn pr-3" @click="closeDeleteDialog()">Abbrechen</button>
@@ -136,7 +160,8 @@ definePageMeta({
 const pb = usePocketBase();
 const data = ref(null);
 const submitting = ref(false);
-
+const error = ref(false);
+const errorMessage = ref("");
 // 0: Create, 1: Edit
 let action = ref(-1);
 
@@ -213,6 +238,7 @@ async function saveNew() {
 }
 
 function deleteDialog(index) {
+  error.value = false;
   my_modal_2.showModal();
   selectedId = data.value[index].id;
 }
@@ -224,9 +250,16 @@ function closeDeleteDialog() {
 
 async function confirmDelete() {
   submitting.value = true;
-  await pb.collection("categories").delete(selectedId);
-  await getAllCategories();
-  closeDeleteDialog();
+  try {
+    await pb.collection("categories").delete(selectedId);
+  } catch (e) {
+    errorMessage.value = e;
+    error.value = true;
+  }
+  if (!error.value) {
+    await getAllCategories();
+    closeDeleteDialog();
+  }
   submitting.value = false;
 }
 </script>
