@@ -4,49 +4,24 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Beschreibung</th>
         <th />
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(category, index) in props.data" :key="index">
+      <tr v-for="(location, index) in props.data" :key="index" class="hover">
         <td>
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-3 w-full">
             <div>
-              <div v-if="category.name !== '' && category.name !== ' '" class="font-bold">
-                {{ category.name }}
+              <div v-if="location.name !== '' && location.name !== ' '" class="font-bold">
+                {{ location.name }}
               </div>
               <div v-else>N/A</div>
             </div>
           </div>
         </td>
-        <td>
-          <div class="flex items-center gap-3">
-            <div>
-              <div v-if="category.name !== '' && category.name !== ' '">
-                {{ category.description }}
-              </div>
-              <div v-else class="flex flex-row space-x-1">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  class="w-5 h-5"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                <span class="font-light">Diese Kategorie ist ungültig.</span>
-              </div>
-            </div>
-          </div>
-        </td>
         <td class="flex flex-row space-x-1 justify-end">
           <button
-            @click="$emit('edit', category)"
+            @click="$emit('edit', location)"
             class="group btn btn-sm btn-square btn-ghost hover:bg-cyan-600"
           >
             <svg
@@ -89,15 +64,14 @@
     <tfoot>
       <tr>
         <th>Name</th>
-        <th>Beschreibung</th>
         <th />
       </tr>
     </tfoot>
   </table>
   <AdminNoDataHero
     v-else
-    message="Es wurden noch keine Kategorien erstellt. Um Veranstaltungen
-  anzulegen, muss mindestens eine Kategorie existieren."
+    message="Es wurden noch keine Veranstaltungsorte erstellt. Um Veranstaltungen
+  anzulegen, muss mindestens ein Veranstaltungsort existieren."
   />
 </template>
 

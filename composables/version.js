@@ -7,7 +7,7 @@ export const useChangelog = () => {
         {
             date: "November/Dezember 2023 - Version 1.6.0",
             changes: [
-                "Added: Im neuen Admin Interface können nun Veranstaltungen verwaltet werden.",
+                "Added: Im neuen Admin Interface können nun Veranstaltungen, Kategorien und Orte verwaltet werden.",
                 "Added: Der Name der App kann nun beim Kompilieren geändert werden.",
                 "Added: Veranstaltungen können nun einem Team zugeordnet werden.",
                 "Breaking: Neue Variablen werden beim Kompilieren benötigt.",

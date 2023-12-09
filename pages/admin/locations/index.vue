@@ -1,10 +1,10 @@
 <template>
   <AdminLayoutHeader
-    title="Kategorien verwalten"
-    subtitle="Hier kannst du alle Kategorien bearbeiten."
+    title="Veranstaltungsorte verwalten"
+    subtitle="Hier kannst du alle Veranstaltungsorte bearbeiten."
     :path="[
       { name: 'Home', path: '/admin', active: false },
-      { name: 'Kategorien', path: '/admin/events', active: true },
+      { name: 'Orte', path: '/admin/locations', active: true },
     ]"
   >
     <button class="btn btn-primary" @click="openCreateDialog()">
@@ -37,27 +37,18 @@
             />
           </svg>
         </button>
-        <h3 v-if="action === 0" class="font-bold text-lg">Kategorie erstellen</h3>
-        <h3 v-if="action === 1" class="font-bold text-lg">Kategorie bearbeiten</h3>
+        <h3 v-if="action === 0" class="font-bold text-lg">Veranstaltungsort erstellen</h3>
+        <h3 v-if="action === 1" class="font-bold text-lg">
+          Veranstaltungsort bearbeiten
+        </h3>
         <div class="py-4">
           <div class="label">
-            <span class="label-text">Name der Kategorie</span>
+            <span class="label-text">Name des Veranstaltungsortes</span>
           </div>
           <input
             type="text"
             v-model="name"
             placeholder="Beispieltitel"
-            class="input input-bordered w-full"
-            :disabled="submitting"
-          />
-
-          <div class="label">
-            <span class="label-text">Beschreibung</span>
-          </div>
-          <input
-            type="text"
-            v-model="description"
-            placeholder="kreatives, nachdenkliches, musikalisches, sportliches"
             class="input input-bordered w-full"
             :disabled="submitting"
           />
@@ -116,15 +107,15 @@
             </svg>
 
             <div>
-              Die Kategorie konnte nicht gelöscht werden. Stelle sicher, dass keine
-              Veranstaltung auf diese Kategorie verweist und versuche es erneut.
+              Der Veranstaltungsort konnte nicht gelöscht werden. Stelle sicher, dass
+              keine Veranstaltung auf diesen Ort verweist und versuche es erneut.
               <DevOnly>
                 <span class="mt-4">{{ errorMessage }} </span>
               </DevOnly>
             </div>
           </div>
           Dieser Vorgang kann nicht rückgängig gemacht werden. Es darf keine Veranstaltung
-          existieren, die diese Kategorie verwendet.
+          existieren, die diesen Veranstaltungsort verwendet.
         </div>
         <div class="modal-action">
           <button class="btn pr-3" @click="closeDeleteDialog()">Abbrechen</button>
@@ -137,18 +128,18 @@
           </button>
         </div>
       </div>
-    </dialog>
-  </AdminLayoutHeader>
+    </dialog></AdminLayoutHeader
+  >
   <div class="pl-3">
     <div class="overflow-x-auto">
       <AdminHighPermissionWarning
-        reason="Du bist berechtigt, alle Kategorien zu bearbeiten. Dabei kannst du bestehende
-          Veranstaltungen zerstören."
+        reason="Du bist berechtigt, alle Veranstaltungsorte zu bearbeiten."
       />
-      <AdminCategoryList :data="data" @edit="edit" @delete="deleteDialog" />
     </div>
+    <AdminLocationList :data="data" @edit="edit" @delete="deleteDialog" />
   </div>
 </template>
+
 <script setup>
 definePageMeta({
   middleware: "auth",
@@ -165,22 +156,22 @@ let action = ref(-1);
 
 // Data
 const name = ref(null);
-const description = ref(null);
 let selectedId = 0;
+
 // helper functions
 function reset() {
   name.value = null;
-  description.value = null;
   action.value = -1;
 }
-async function getAllCategories() {
+
+async function getAllLocations() {
   let payload = {
     sort: "name",
   };
-  data.value = await pb.collection("categories").getFullList(payload);
+  data.value = await pb.collection("locations").getFullList(payload);
 }
 
-await getAllCategories();
+await getAllLocations();
 
 function openCreateDialog() {
   action.value = 0;
@@ -192,19 +183,10 @@ function closeDialog() {
   my_modal_1.close();
 }
 
-function assembleCategory() {
+function assembleLocation() {
   return {
     name: name.value,
-    description: description.value,
   };
-}
-
-function edit(category) {
-  selectedId = category.id;
-  name.value = category.name;
-  description.value = category.description;
-  action.value = 1;
-  my_modal_1.showModal();
 }
 
 async function save() {
@@ -217,20 +199,25 @@ async function save() {
   reset();
 }
 
-async function saveEdited() {
-  submitting.value = true;
-  const updated = await pb
-    .collection("categories")
-    .update(selectedId, assembleCategory());
-  await getAllCategories();
-  submitting.value = false;
-  closeDialog();
+function edit(location) {
+  selectedId = location.id;
+  name.value = location.name;
+  action.value = 1;
+  my_modal_1.showModal();
 }
 
 async function saveNew() {
   submitting.value = true;
-  const created = await pb.collection("categories").create(assembleCategory());
-  await getAllCategories();
+  const created = await pb.collection("locations").create(assembleLocation());
+  await getAllLocations();
+  submitting.value = false;
+  closeDialog();
+}
+
+async function saveEdited() {
+  submitting.value = true;
+  const updated = await pb.collection("locations").update(selectedId, assembleLocation());
+  await getAllLocations();
   submitting.value = false;
   closeDialog();
 }
@@ -249,13 +236,13 @@ function closeDeleteDialog() {
 async function confirmDelete() {
   submitting.value = true;
   try {
-    await pb.collection("categories").delete(selectedId);
+    await pb.collection("locations").delete(selectedId);
   } catch (e) {
     errorMessage.value = e;
     error.value = true;
   }
   if (!error.value) {
-    await getAllCategories();
+    await getAllLocations();
     closeDeleteDialog();
   }
   submitting.value = false;
