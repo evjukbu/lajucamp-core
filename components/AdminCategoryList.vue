@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(category, index) in props.data" :key="index">
+      <tr v-for="(category, index) in props.data" :key="index" class="hover">
         <td>
           <div class="flex items-center gap-3">
             <div>

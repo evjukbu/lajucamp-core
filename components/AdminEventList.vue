@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(event, index) in props.data" :key="index">
+      <tr v-for="(event, index) in props.data" :key="index" class="hover">
         <td>
           <div class="flex items-center gap-3">
             <div>
