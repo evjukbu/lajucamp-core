@@ -23,30 +23,41 @@
         <img src="~assets/kdw.jpg" class="w-full h-full object-cover rounded-s-md" />
       </div>
       <div class="h-96 w-full">
-        <div class="p-8">
+        <form id="login" class="p-8">
           <label class="label">
             <span class="label-text">Benutzername</span>
           </label>
           <input
+            :disabled="loading"
             type="text"
             placeholder="Benutzername"
             v-model="username"
             class="input input-bordered w-full"
+            @keyup.enter="focusPassword()"
           />
           <label class="label">
             <span class="label-text">Passwort</span>
           </label>
           <input
+            :disabled="loading"
             type="password"
             placeholder="Passwort"
             v-model="password"
             class="input input-bordered w-full"
+            @keyup.enter="login()"
+            ref="passwordInput"
           />
-          <span class="btn btn-secondary mt-8 w-full" @click="login()">Anmelden</span>
+          <div v-if="!loading" class="btn btn-secondary mt-8 w-full" @click="login()">
+            Anmelden
+          </div>
+          <div v-else class="btn btn-secondary mt-8 w-full btn-disabled">
+            <span class="loading loading-spinner"></span>
+            Bitte warten...
+          </div>
           <span v-if="wrong" class="font-light text-red-600 text-sm"
             >Falsche Zugansdaten.</span
           >
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -59,17 +70,27 @@ const wrong = ref(false);
 const authData = ref();
 const username = ref("");
 const password = ref("");
+
+const loading = ref(false);
 definePageMeta({
   layout: "blank",
 });
 
+const passwordInput = ref(null);
+
+function focusPassword() {
+  passwordInput.value.focus();
+}
+
 async function login() {
+  loading.value = true;
   wrong.value = false;
   let data = null;
   try {
     data = await pb.collection("users").authWithPassword(username.value, password.value);
   } catch {
     wrong.value = true;
+    loading.value = false;
   }
   if (data) {
     await navigateTo("/admin");
