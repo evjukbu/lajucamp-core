@@ -7,7 +7,7 @@ export const useChangelog = () => {
         {
             date: "November/Dezember 2023 - Version 1.6.0",
             changes: [
-                "Added: Im neuen Admin Interface können nun Veranstaltungen, Kategorien und Orte verwaltet werden.",
+                "Added: Im neuen Admin Interface können nun Veranstaltungen, Kategorien, Willkommensnachrichten und Orte verwaltet werden.",
                 "Added: Der Name der App kann nun beim Kompilieren geändert werden.",
                 "Added: Veranstaltungen können nun einem Team zugeordnet werden.",
                 "Breaking: Neue Variablen werden beim Kompilieren benötigt.",
@@ -173,6 +173,14 @@ export const useContributors = () => {
             color: "bg-secondary",
         },
         {
+            initials: "AR",
+            name: "Anni Reimann",
+            tag: "EvJu Burgdorf",
+            job: "Projektbegleitung",
+            insta: "https://instagram.com/annimation85",
+            color: "bg-orange-400",
+        },
+        {
             initials: "CL",
             name: "Christian Lerch",
             tag: "EvJu BuLa",
@@ -189,12 +197,11 @@ export const useContributors = () => {
             color: "bg-purple-400",
         },
         {
-            initials: "AR",
-            name: "Anni Reimann",
-            tag: "EvJu Burgdorf",
+            initials: "OF",
+            name: "Oliver Fruth-Schünemann",
+            tag: "Laju",
             job: "Projektbegleitung",
-            insta: "https://instagram.com/annimation85",
-            color: "bg-orange-400",
-        },
+            color: "bg-yellow-600"
+        }
     ]
 }
