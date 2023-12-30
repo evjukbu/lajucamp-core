@@ -1,5 +1,5 @@
 {
-  "name": "Festivalapp",
+  "name": "Landesjugendcamp",
   "private": true,
   "scripts": {
     "build": "nuxt build",
