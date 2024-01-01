@@ -18,7 +18,7 @@
           d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"
         />
       </svg>
-      Neue Kategorie
+      Neuer Veranstaltungsort
     </button>
     <dialog id="my_modal_1" class="modal">
       <div class="modal-box w-11/12 max-w-7xl">
