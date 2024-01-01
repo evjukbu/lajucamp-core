@@ -41,6 +41,7 @@
 
 <script setup>
 const router = useRouter();
+const route = useRoute();
 const pb = usePocketBase();
 const wrong = ref(false);
 const authData = ref();
@@ -69,7 +70,11 @@ async function login() {
     loading.value = false;
   }
   if (data) {
-    await navigateTo("/admin");
+    if (route.query.redirect !== undefined) {
+      await navigateTo(route.query.redirect)
+    } else {
+      await navigateTo("/admin");
+    }
   }
 }
 </script>
