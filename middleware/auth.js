@@ -1,6 +1,5 @@
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware(async (to, from) => {
     const pb = usePocketBase()
-    // isAuthenticated() is an example method verifying if a user is authenticated
     if (pb.authStore.isValid === false) {
         console.log(to)
         return navigateTo({
@@ -9,5 +8,20 @@ export default defineNuxtRouteMiddleware((to, from) => {
                 redirect: to.fullPath
             }
         })
+    } else {
+        const settings = useSettingsManager()
+        const oobe = await settings.getValue('oobe_complete')
+        if (!oobe) {
+            if (to.path !== '/admin/oobe') {
+                return navigateTo({
+                    path: "/admin/oobe",
+                    query: {
+                        redirect: to.fullPath
+                    }
+                })
+            }
+        }
     }
+
+
 })
