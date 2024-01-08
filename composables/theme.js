@@ -1,5 +1,5 @@
 export const useTheme = () => {
-    const DEFAULT_THEME = "lajucamp24"
+    const DEFAULT_THEME = "bulabulight"
 
     const cookie = useCookie("theme", { expires: new Date('9999-12-31') })
     const themes = [

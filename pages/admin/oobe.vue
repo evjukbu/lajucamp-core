@@ -341,9 +341,12 @@ async function nextStep() {
         }
 
         // Set password
+        const oldPassword = await settings.getValue("oobe_init_password")
+        console.log(oldPassword)
         const response = await pb.collection("users").update(pb.authStore.model.id, {
             password: password.value,
-            passwordConfirm: passwordRepeat.value
+            passwordConfirm: passwordRepeat.value,
+            oldPassword: oldPassword
         })
 
         // reauthenticate
@@ -351,7 +354,6 @@ async function nextStep() {
 
         // Save step in settings
         await settings.setValue("oobe_password_set", { success: true })
-
         // Go to next step
         step.value = 2
     } else {

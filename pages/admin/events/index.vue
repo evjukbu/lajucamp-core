@@ -222,7 +222,7 @@
       <AdminHighPermissionWarning
         reason="Du bist berechtigt, Veranstaltungen aller Sprengel zu bearbeiten."
       />
-      <AdminEventList :data="data" @delete="deleteDialog" @edit="edit" />
+      <AdminEventList :data="data" @delete="notImplemented" @edit="notImplemented" />
     </div>
   </div>
 </template>
@@ -391,5 +391,9 @@ async function confirmDelete() {
   await getAllEvents();
   closeDeleteDialog();
   submitting.value = false;
+}
+
+function notImplemented() {
+  alert("Not implemented yet!")
 }
 </script>

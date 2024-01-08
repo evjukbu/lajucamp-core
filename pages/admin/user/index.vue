@@ -164,7 +164,7 @@ function getPermissions() {
     if (pb.authStore.model.manageTeams) {
         result.push("Alle Sprengel verwalten")
     }
-    if (pb.authStore.model.superadmin) {
+    if (pb.authStore.model.manageUsers) {
         result.push("Alle Benutzer verwalten")
     }
     return result
