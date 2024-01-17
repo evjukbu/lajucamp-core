@@ -5,11 +5,13 @@ export const useVersion = () => {
 export const useChangelog = () => {
     return [
         {
-            date: "November/Dezember 2023 - Version 1.6.0",
+            date: "Januar 2023 - Version 1.6.0",
             changes: [
                 "Added: Im neuen Admin Interface können nun Veranstaltungen, Kategorien, Willkommensnachrichten und Orte verwaltet werden.",
                 "Added: Der Name der App kann nun beim Kompilieren geändert werden.",
                 "Added: Veranstaltungen können nun einem Team zugeordnet werden.",
+                "Added: Neues \"Lajucamp\" Theme",
+                "Added: Neues Icon",
                 "Breaking: Neue Variablen werden beim Kompilieren benötigt.",
                 "Fix: Kategorieansicht und Veranstaltungsansicht überlappen nicht mehr",
                 "Change: Neue Versionen von Abhängigkeiten werden verwendet.",
