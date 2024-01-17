@@ -172,7 +172,9 @@ async function save() {
 
 function assembleTeam() {
   formData.set("name", name.value);
-  formData.set("link", link.value);
+  if(link.value !== null) {
+    formData.set("link", link.value);
+  }
 }
 
 async function saveNew() {
