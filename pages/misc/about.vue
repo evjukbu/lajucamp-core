@@ -75,7 +75,7 @@
         </div>
       </div>
     </div>
-    <div class="card card-compact w-full bg-base-100 shadow-xl">
+    <div v-if="config.public.hds" class="card card-compact w-full bg-base-100 shadow-xl">
       <div class="card-body">
         <h2 class="card-title">Unterstützt durch</h2>
         <figure class="flex justify-center">

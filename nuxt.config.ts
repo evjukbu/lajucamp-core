@@ -80,7 +80,8 @@ export default defineNuxtConfig({
       saDomain: '',
       title: '',
       short_title: '',
-      description: ''
+      description: '',
+      hds: true,
     }
   },
   pwa: {

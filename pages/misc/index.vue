@@ -55,7 +55,7 @@
 
 
 
-    <div class="fixed bottom-20 w-full flex flex-col justify-center">
+    <div v-if="config.public.hds" class="fixed bottom-20 w-full flex flex-col justify-center">
         <span class="text-center font-light text-sm">Unterstützt durch</span>
         <figure class="flex justify-center w-full">
             <img src="~assets/hds.png" class="w-1/4" />
@@ -67,6 +67,7 @@
 <script setup>
 const pageManager = usePageManager()
 const cookie = useCookie("keys", { expires: new Date('9999-12-31') })
+const config = useRuntimeConfig();
 
 let records = ref([])
 
