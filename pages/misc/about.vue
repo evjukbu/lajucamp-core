@@ -11,7 +11,7 @@
           <img v-else src="~assets/ejkkbu.png" class="w-1/3" />
         </figure>
         <span class="text-center"
-          >Copyright © 2023 Evangelische Jugend im Kirchenkreis Burgdorf.</span
+          >Copyright © 2024 Evangelische Jugend im Kirchenkreis Burgdorf.</span
         >
       </div>
     </div>
