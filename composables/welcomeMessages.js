@@ -20,7 +20,7 @@ export const useWelcomeManager = () => {
     }
     async function getMessageList() {
         let shouldUpdate = false
-        if (shouldUpdateCache(storage, 60)) {
+        if (await shouldUpdateCache(storage, 'welcome_messages')) {
             shouldUpdate = true
         }
         if (shouldUpdate) {

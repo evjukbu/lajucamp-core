@@ -2,6 +2,7 @@ import { useLocalStorage } from "@vueuse/core"
 
 export const usePageManager = () => {
     const pb = usePocketBase()
+
     const storage = useLocalStorage("pageStore", { updated: null, items: [] })
 
     async function getInternalPageList() {
@@ -20,7 +21,7 @@ export const usePageManager = () => {
 
     async function getPageList() {
         let shouldUpdate = false
-        if (shouldUpdateCache(storage, 120)) {
+        if (await shouldUpdateCache(storage, 'pages')) {
             shouldUpdate = true
         }
         if (shouldUpdate) {

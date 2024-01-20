@@ -2,6 +2,7 @@ import { useLocalStorage } from "@vueuse/core"
 
 export const usePostManager = () => {
     const pb = usePocketBase()
+
     const storage = useLocalStorage("postStore", { updated: null, items: [] })
 
 
@@ -27,7 +28,7 @@ export const usePostManager = () => {
 
     async function getPostList() {
         let shouldUpdate = false
-        if (shouldUpdateCache(storage, 10)) {
+        if (await shouldUpdateCache(storage, 'posts')) {
             shouldUpdate = true
         }
         if (shouldUpdate) {

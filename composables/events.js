@@ -21,7 +21,7 @@ export const useEventManager = () => {
 
     async function getEventList() {
         let shouldUpdate = false
-        if (shouldUpdateCache(storage, 60)) {
+        if (await shouldUpdateCache(storage, "events")) {
             shouldUpdate = true
         }
         if (shouldUpdate) {

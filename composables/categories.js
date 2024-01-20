@@ -18,7 +18,7 @@ export const useCategoryManager = () => {
 
     async function getCategoryList() {
         let shouldUpdate = false
-        if (shouldUpdateCache(storage, 10)) {
+        if (await shouldUpdateCache(storage, 'categories')) {
             shouldUpdate = true
         }
         if (shouldUpdate) {

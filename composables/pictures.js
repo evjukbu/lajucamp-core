@@ -2,6 +2,7 @@ import { useLocalStorage } from "@vueuse/core"
 
 export const usePictureManager = () => {
     const pb = usePocketBase()
+
     const storage = useLocalStorage("pictureStore", { updated: null, items: [] })
 
     async function getInternalPictureList() {
@@ -20,7 +21,7 @@ export const usePictureManager = () => {
 
     async function getPictureList() {
         let shouldUpdate = false
-        if (shouldUpdateCache(storage, 120)) {
+        if (await shouldUpdateCache(storage, 'images')) {
             shouldUpdate = true
         }
         if (shouldUpdate) {

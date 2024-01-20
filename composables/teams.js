@@ -18,7 +18,7 @@ export const useTeamManager = () => {
 
     async function getTeamList() {
         let shouldUpdate = false
-        if (shouldUpdateCache(storage, 120)) {
+        if (await shouldUpdateCache(storage, 'teams')) {
             shouldUpdate = true
         }
         if (shouldUpdate) {
