@@ -222,7 +222,7 @@
       <AdminHighPermissionWarning
         reason="Du bist berechtigt, Veranstaltungen aller Sprengel zu bearbeiten."
       />
-      <AdminEventList :data="data" @delete="notImplemented" @edit="notImplemented" />
+      <AdminEventList :data="data" @delete="deleteDialog" @edit="edit" />
     </div>
   </div>
 </template>
@@ -278,6 +278,7 @@ let selectedId = -1;
 let selectedIndex = -1;
 
 async function getAllEvents() {
+  data.value = null;
   let payload = {
     sort: "start",
     expand: "location,category,team",
@@ -341,6 +342,7 @@ function edit(event) {
   modalIsOpen.value = true;
   my_modal_1.showModal();
 }
+
 function closeDialog() {
   reset();
   modalIsOpen.value = false;

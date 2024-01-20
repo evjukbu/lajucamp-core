@@ -81,7 +81,7 @@
         </td>
         <td>
           <div v-if="event.team !== null && pb.authStore.model.manageAllEvents">
-            <TeamNote :team="event.team" />
+            <TeamNote v-if="update_state === 0" :team="event.team" />
           </div>
         </td>
         <td class="flex flex-row space-x-1">
@@ -149,4 +149,10 @@
 <script setup>
 const props = defineProps(["data"]);
 const pb = usePocketBase();
+
+const update_state = ref(0)
+onUpdated(() => {
+  update_state.value = 1
+  update_state.value = 0
+});
 </script>
