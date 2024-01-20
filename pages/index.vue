@@ -1,5 +1,6 @@
 <template>
     <div class="flex flex-col space-y-3 pb-3">
+        <HomePageOfflineCard v-if="!online"/>
         <HomepageWelcomeCardBundle />
         <HomepageEventListCard />
         <SingleNewsCard />
@@ -8,8 +9,11 @@
 </template>
 
 <script setup>
+import { useOnline } from "@vueuse/core"
+
 const route = useRoute()
 const cookie = useCookie("installed", { expires: new Date('9999-12-31') })
+const online = useOnline()
 if (route.query.standalone === 'true') {
     cookie.value = true
 }
