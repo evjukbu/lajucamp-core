@@ -20,19 +20,13 @@ export const useEventManager = () => {
     }
 
     async function getEventList() {
-        let shouldUpdate = false
         if (await shouldUpdateCache(storage, "events")) {
-            shouldUpdate = true
-        }
-        if (shouldUpdate) {
             return await update()
-        } else {
-            if (storage.value.updated !== null) {
-                return storage.value
-            } else {
-                throw "User is offline and no data is downloaded"
-            }
         }
+        if (!storage.value.updated) {
+            throw "User is offline and no data is downloaded"
+        }
+        return storage.value
     }
 
     function checkIsPast(event) {
