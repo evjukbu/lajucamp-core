@@ -19,6 +19,8 @@
                 <br />
             </div>
 
+            <KeyScanner class="my-4" @onScan="key = $event"></KeyScanner>
+
             <input v-model="key" type="text" placeholder="Berechtigungsschlüssel eingeben"
                 class="input input-bordered w-full" />
             <div class="flex justify-end py-4">
