@@ -19,13 +19,12 @@
     "nuxt": "^3.6.5"
   },
   "dependencies": {
-    "@types/qrcode": "^1.5.5",
     "@vuepic/vue-datepicker": "^7.3.0",
     "@vueup/vue-quill": "^1.2.0",
     "@vueuse/core": "^10.4.1",
     "js-cookie": "^3.0.5",
     "pocketbase": "^0.16.0",
-    "qrcode": "^1.5.3",
+    "qr-scanner": "^1.4.2",
     "simple-analytics-vue": "^3.0.2"
   }
 }
