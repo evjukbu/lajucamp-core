@@ -7,6 +7,7 @@ export const useChangelog = () => {
         {
             date: "Januar 2023 - Version 1.6.0",
             changes: [
+                "Added: Berechtigungsschlüssel können nun per QR-Code gescannt werden.",
                 "Added: Das Logo der Heinrich Damman Stiftung kann ausgeblendet werden, wenn die Veranstaltung nicht von der Stiftung unterstützt wird.",
                 "Added: Im neuen Admin Interface können nun Veranstaltungen, Kategorien, Willkommensnachrichten und Orte verwaltet werden.",
                 "Added: Der Name der App kann nun beim Kompilieren geändert werden.",

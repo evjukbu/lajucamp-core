@@ -2,8 +2,7 @@
     <CardLikeContainer>
         <h1 class="text-3xl pb-3">Schlüssel hinzufügen</h1>
         <ul class="steps">
-            <li :class="'step ' + ((step >= 0) ? 'step-primary' : '')">Schlüssel eingeben</li>
-            <li :class="'step ' + ((step >= 1) ? 'step-primary' : '')">Schlüssel bestätigen</li>
+            <li :class="'step ' + ((step >= 0) ? 'step-primary' : '')">{{ qr ? 'Schlüssel scannen' : 'Schlüssel eintippen' }}</li>            <li :class="'step ' + ((step >= 1) ? 'step-primary' : '')">Schlüssel bestätigen</li>
             <li :class="'step ' + ((step >= 2) ? 'step-primary' : '')">Schlüssel aktivieren</li>
         </ul>
         <div v-show="step === 0">
@@ -18,12 +17,18 @@
                 </div>
                 <br />
             </div>
+            <KeyScanner v-if="qr" class="my-4" @onScan="validateScan" @switch-to-manual="qr=false" ></KeyScanner>
 
-            <input v-model="key" type="text" placeholder="Berechtigungsschlüssel eingeben"
+            <div v-else class="flex flex-col">
+                <input v-model="key" type="text" placeholder="Berechtigungsschlüssel eingeben"
                 class="input input-bordered w-full" />
-            <div class="flex justify-end py-4">
+            <div class="flex flex-row justify-end py-4">
+                <div class="btn btn-ghost" @click="qr=true">Zurück zum Scanner</div>
                 <div :disabled="(key === '') ? 1 : False" class="btn btn-primary" @click="validate">Weiter</div>
             </div>
+            </div>
+
+
         </div>
         <div v-if="step === 1">
             <p class="py-3">Möchtest du diesen Schlüssel aktivieren?</p>
@@ -59,6 +64,7 @@ const key = ref("")
 const pb = usePocketBase()
 const showErrorMessage = ref(false)
 let record = null
+const qr = ref(true)
 
 const cookie = useCookie("keys", { expires: new Date('9999-12-31') })
 
@@ -66,12 +72,17 @@ const cookie = useCookie("keys", { expires: new Date('9999-12-31') })
 async function validate() {
     try {
         record = await pb.collection('keys').getOne(key.value)
+        if(record.id === '') return false
+        step.value = 1
     } catch (error) {
-        showErrorMessage.value = true
-        key.value = ""
-        return false
+        console.error(error)
+        if (!error.message.includes("The request was autocancelled.")) {
+            showErrorMessage.value = true
+            return false
+        }
     }
-    step.value = 1
+    key.value = ""
+    
     return true
 }
 
@@ -84,5 +95,23 @@ async function confirm() {
     temp.push(record)
     cookie.value = JSON.stringify(temp, null, 2)
     console.log(cookie.value)
+}
+
+function validateJsonString(jsonString) {
+    try {
+        const jsonObject = JSON.parse(jsonString);
+        return (jsonObject.hasOwnProperty('type') && jsonObject.type === 'accesskey' &&
+               jsonObject.hasOwnProperty('key') && typeof jsonObject.key === 'string');
+    } catch (e) {
+        return false;
+    }
+}
+
+function validateScan(scan) {
+    if(step.value !== 0) return
+    if(validateJsonString(scan)) {
+        key.value = JSON.parse(scan).key
+        validate()
+    }
 }
 </script>

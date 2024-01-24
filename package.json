@@ -24,6 +24,7 @@
     "@vueuse/core": "^10.4.1",
     "js-cookie": "^3.0.5",
     "pocketbase": "^0.16.0",
+    "qr-scanner": "^1.4.2",
     "simple-analytics-vue": "^3.0.2"
   }
 }
