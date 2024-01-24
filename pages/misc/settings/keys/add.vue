@@ -19,7 +19,7 @@
                 <br />
             </div>
 
-            <KeyScanner class="my-4" @onScan="key = $event"></KeyScanner>
+            <KeyScanner class="my-4" @onScan="validateScan"></KeyScanner>
 
             <input v-model="key" type="text" placeholder="Berechtigungsschlüssel eingeben"
                 class="input input-bordered w-full" />
@@ -68,12 +68,17 @@ const cookie = useCookie("keys", { expires: new Date('9999-12-31') })
 async function validate() {
     try {
         record = await pb.collection('keys').getOne(key.value)
+        if(record.id === '') return false
+        step.value = 1
     } catch (error) {
-        showErrorMessage.value = true
-        key.value = ""
-        return false
+        console.error(error)
+        if (!error.message.includes("The request was autocancelled.")) {
+            showErrorMessage.value = true
+            return false
+        }
     }
-    step.value = 1
+    key.value = ""
+    
     return true
 }
 
@@ -86,5 +91,23 @@ async function confirm() {
     temp.push(record)
     cookie.value = JSON.stringify(temp, null, 2)
     console.log(cookie.value)
+}
+
+function validateJsonString(jsonString) {
+    try {
+        const jsonObject = JSON.parse(jsonString);
+        return (jsonObject.hasOwnProperty('type') && jsonObject.type === 'accesskey' &&
+               jsonObject.hasOwnProperty('key') && typeof jsonObject.key === 'string');
+    } catch (e) {
+        return false;
+    }
+}
+
+function validateScan(scan) {
+    if(step.value !== 0) return
+    if(validateJsonString(scan)) {
+        key.value = JSON.parse(scan).key
+        validate()
+    }
 }
 </script>

@@ -1,4 +1,5 @@
 <template>
+  {{ selectedCam }}
   <div style="position: relative;">
     <div class="overflow-hidden flex justify-center items-center h-full">
       <div :class="`overflow-hidden flex justify-center items-center h-full ${flip ? 'flip' : ''}`">
@@ -17,14 +18,13 @@
     </button>
     <div v-if="showSettings" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full"
       style="z-index: 1000;">
-      <div class="relative top-20 mx-auto px-3 border sm:w-auto shadow-lg rounded-md bg-white"
-        style="width: 400px; max-width: 90%;">
+      <div class="relative top-20 mx-auto px-3 border sm:w-auto shadow-lg rounded-md bg-white w-400px max-w-90%">
         <div class="mt-3 text-center">
           <div class="mt-2">
             <p class="text-lg leading-6 font-medium text-gray-900">Settings</p>
             <div class="mt-2">
               <!--TODO: check multi cam... $event.target maybe not working-->
-              <select @change="setCamera($event.target)"
+              <select @change="setCamera" v-model="camid_storage"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                 <option v-for="cam in cams" :value="cam.label" class="">{{ cam.label }}</option>
               </select>
@@ -50,7 +50,11 @@
 
 <script setup lang="ts">
 //@ts-ignore
+import { useLocalStorage } from '@vueuse/core';
 import QrScanner from 'qr-scanner';
+
+const camid_storage = useLocalStorage('camid', '');
+const scanner_result_storage = useLocalStorage('result', []);
 
 const props = defineProps({
   reset: {
@@ -79,10 +83,11 @@ let flip = ref(false);
 
 let results = ref<string[]>([]);
 
-function setCamera(label: string) {
-  let id = cams.value.find(el => el.label == label)?.id || localStorage.getItem('camid') || '';
+
+function setCamera() {
+  let label = camid_storage.value;
+  let id = cams.value.find(el => el.label == label)?.id || camid_storage.value || '';
   qrScanner.value?.setCamera(id);
-  localStorage.setItem('camid', id);
 }
 
 onMounted(() => {
@@ -95,14 +100,12 @@ onMounted(() => {
     const vid = window.document.getElementById('qr-video');
     qrScanner.value = new QrScanner(vid as HTMLVideoElement, (result: any) => {
       if (result instanceof Error) return;
-      if (results.value.includes(result)) return;
       results.value.unshift(result);
       emit('onScan', result);
       emit('results', results.value);
       blink.value = true;
       setTimeout(() => blink.value = false, 300);
     });
-    setCamera('')
     try {
       qrScanner.value.start();
     } catch (e) {
@@ -125,7 +128,7 @@ watch(() => props.reset, () => {
   emit('update:reset', false);
 });
 
-localStorage.setItem('result', JSON.stringify(results));
+scanner_result_storage.value = results.value;
 </script>
 
 <style scoped>
