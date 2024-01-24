@@ -26,4 +26,5 @@ if (theme.isDark()) {
     ]
   })
 }
+  
 </script>
