@@ -1,13 +1,11 @@
 <template>
   <div style="position: relative;">
-    <div class="frame">
-      <div :class="`frame ${flip ? 'flip' : ''}`">
-        <video id="qr-video" :class="`video ${blink ? 'blink' : ''}`"></video>
+    <div class="overflow-hidden flex justify-center items-center h-full">
+      <div :class="`overflow-hidden flex justify-center items-center h-full ${flip ? 'flip' : ''}`">
+        <video id="qr-video" :class="`h-full transition-all duration-150 ease-in-out filter brightness-100 ${blink ? 'blink' : ''}`"></video>
       </div>
-      <div v-if="props.overlaypath" style="width: 100%; height: 80%; position: absolute; top:0;left:0;"
-        class="d-flex justify-center align-center">
-        <img :src="`${props.overlaypath}`"
-          style="width:60vw; max-width: 50%; aspect-ratio: 1/1; max-height: min(50%,50vh);">
+      <div v-if="props.overlaypath" class="w-full h-80 absolute top-0 left-0 flex justify-center items-center">
+        <img :src="`${props.overlaypath}`" class="w-60vw max-w-50 aspect-w-1 aspect-h-1 max-h-50% h-50vh">
       </div>
     </div>
     <button @click="showSettings = true" class="absolute right-4 top-4 z-50 text-grey-500">
@@ -131,20 +129,6 @@ localStorage.setItem('result', JSON.stringify(results));
 </script>
 
 <style scoped>
-.frame {
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.video {
-  height: 100%;
-  transition: all 0.15s ease-in-out;
-  filter: brightness(1);
-
-}
 
 .flip {
   -moz-transform: scale(-1, 1);
