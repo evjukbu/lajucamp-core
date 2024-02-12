@@ -9,7 +9,7 @@ export const useChangelog = () => {
             changes: [
                 "Added: Berechtigungsschlüssel können nun per QR-Code gescannt werden.",
                 "Added: Das Logo der Heinrich Damman Stiftung kann ausgeblendet werden, wenn die Veranstaltung nicht von der Stiftung unterstützt wird.",
-                "Added: Im neuen Admin Interface können nun Veranstaltungen, Kategorien, Willkommensnachrichten und Orte verwaltet werden.",
+                "Added: Im neuen Admin Interface können nun Veranstaltungen, Kategorien, Willkommensnachrichten, Administrator*innen und Orte verwaltet werden.",
                 "Added: Der Name der App kann nun beim Kompilieren geändert werden.",
                 "Added: Veranstaltungen können nun einem Team zugeordnet werden.",
                 "Added: Neues \"Lajucamp\" Theme",

@@ -32,6 +32,15 @@
                     </svg>
                     {{ errorMessage }}
                 </div>
+                <div class="alert alert-info" v-if="resetSent">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                    </svg>
+
+                    Eine Email zum Zurücksetzen des Passwortes wurde an die Emailadresse gesendet.
+                </div>
                 <div class="flex flex-row space-x-3 justify-between">
                     <div class="w-full">
                         <div class="label">
@@ -78,7 +87,10 @@
                             </label>
                         </div>
                         <div v-else>
-                            s
+                            <div class="label">
+                                <span class="label-text">Authentifizierung</span>
+                            </div>
+                            <div class="btn" @click="resetPassword()">Passwort zurücksetzen</div>
                         </div>
                     </div>
                     <div class="w-full">
@@ -161,9 +173,44 @@
             </div>
         </div>
     </dialog>
+      <dialog id="delete_modal" class="modal">
+    <div class="modal-box">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="closeDeleteDialog()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+          <path
+            d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+        </svg>
+      </button>
+      <h3 class="font-bold text-lg">Diesen Benutzer wirklich löschen?</h3>
+      <div v-if="error" role="alert" class="alert alert-error mb-3 mt-3">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+        </svg>
+
+        <div>
+          Der Benutzer konnte nicht gelöscht werden. Bitte kontaktiere deine*n Systemadministrator*in.<DevOnly>
+            <span class="mt-4"><br />Fehler: {{ errorMessage }} </span>
+          </DevOnly>
+        </div>
+      </div>
+      <div class="py-4">Dieser Vorgang kann nicht rückgängig gemacht werden.</div>
+      <div class="modal-action">
+        <button class="btn pr-3" @click="closeDeleteDialog()">Abbrechen</button>
+        <button :disabled="submitting" class="btn btn-error" @click="confirmDelete()">
+          <div v-if="submitting">
+            <span class="loading loading-spinner loading-xs"></span>
+            Übertragen...
+          </div>
+          <div v-else>Löschen</div>
+        </button>
+      </div>
+    </div>
+  </dialog>
     <div class="pl-3">
         <div class="overflow-x-auto">
-            <AdminUserList :data="data" @edit="edit" />
+            <AdminUserList :data="data" @edit="edit" @delete="deleteDialog" />
         </div>
     </div>
 </template>
@@ -180,6 +227,7 @@ const submitting = ref(false);
 const error = ref(false);
 const errorMessage = ref("");
 const advancedDialog = ref(false);
+const resetSent = ref(false)
 
 let selectedId = 0;
 
@@ -372,5 +420,47 @@ async function save() {
     } else if (action.value === 1) {
         await saveEdited();
     }
+}
+
+async function resetPassword() {
+    await pb.collection('users').requestPasswordReset(mail.value);
+    resetSent.value = true
+}
+
+function closeDeleteDialog() {
+    submitting.value = false;
+    delete_modal.close();
+}
+
+function deleteDialog(user) {
+  error.value = false;
+  errorMessage.value = "";
+  delete_modal.showModal();
+  selectedId = user.id
+}
+
+async function confirmDelete() {
+  submitting.value = true;
+  try {
+    const records = await pb.collection('user_settings').getFullList({
+        filter: "user='" + selectedId + "'",
+    });
+    
+    console.log(records)
+    for (var i = 0; i < records.length; i++) {
+        console.log("Deleting", records[i].id)
+        await pb.collection('user_settings').delete(records[i].id);
+    }
+    await pb.collection("users").delete(selectedId);
+    await getAllUsers();
+  } catch (e) {
+    error.value = true;
+    errorMessage.value = e.message;
+  } finally {
+    submitting.value = false;
+    if (!error.value) {
+      closeDeleteDialog();
+    }
+  }
 }
 </script>
