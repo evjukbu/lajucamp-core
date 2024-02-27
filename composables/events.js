@@ -33,29 +33,28 @@ export const useEventManager = () => {
         return (new Date(event.end)).getTime() > (new Date()).getTime()
     }
 
-    function groupEventsByDay(events, skipPast = false) {
+    function groupEventsByDay(events) {
         // Create an object to hold the grouped events
         const groupedEvents = {};
 
         // Iterate through the list of events
         events.forEach(event => {
-            // Skip past events if the skipPast argument is true
-            if (skipPast && !checkIsPast(event)) {
-                return
-            }
             // Convert the ISO string to a Date object
-            const eventDate = new Date(event.start);
+            const eventDate = new Date(event.end);
 
-            // Get the day of the week as a string (e.g., "Sunday", "Monday", etc.)
-            const dayOfWeek = eventDate.toLocaleDateString('de-DE', { weekday: 'long' });
+            const dayOfWeek = eventDate.toLocaleDateString('de-DE', { weekday: 'short' });
 
             // Check if the day exists in the groupedEvents object, and if not, initialize it as an empty array
             if (!groupedEvents[dayOfWeek]) {
-                groupedEvents[dayOfWeek] = [];
+                groupedEvents[dayOfWeek] = { "past": [], "scheduled": [] };
             }
-
+            const today = new Date()
             // Add the event to the corresponding day
-            groupedEvents[dayOfWeek].push(event);
+            if (eventDate.getTime() < today.getTime()) {
+                groupedEvents[dayOfWeek].past.push(event);
+            } else {
+                groupedEvents[dayOfWeek].scheduled.push(event);
+            }
         });
 
         // Convert the groupedEvents object into an array of objects
@@ -105,10 +104,9 @@ export const useEventManager = () => {
             const data = (await getEventList()).items.filter(obj => obj.category == id)
             return data
         },
-        getDayList: async (skipPast = false) => {
-            console.log(skipPast)
-            const data = (await getEventList(skipPast)).items
-            return groupEventsByDay(data, skipPast)
+        getDayList: async () => {
+            const data = (await getEventList(false)).items
+            return groupEventsByDay(data, false)
         },
         update: async () => {
             await update()

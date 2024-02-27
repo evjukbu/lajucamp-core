@@ -1,11 +1,11 @@
 <template>
     <CardLikeContainer>
-        <h1 class="text-3xl pb-3">Veranstaltungen</h1>
+        <!--<h1 class="text-3xl pb-3">Veranstaltungen</h1>-->
         <select v-model="selected" class="select select-primary w-full">
             <option>Veranstaltungen</option>
             <option>Kategorien</option>
         </select>
-        <SplittedEventList v-if="getViewMode() === 0" />
+        <SplittedEventList class="h-full" v-if="getViewMode() === 0" />
         <CategoryList v-if="getViewMode() === 1" />
     </CardLikeContainer>
 </template>

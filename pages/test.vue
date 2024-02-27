@@ -32,6 +32,16 @@
                 </div>
             </div>
         </div>
+        <div class="card card-compact">
+            <Swiper class="w-full h-24">
+                <SwiperSlide v-for="(slide, idx) in slides" :key="idx">
+                    Slide me!<br />{{ idx }}
+                </SwiperSlide>
+
+                <!-- useSwiper() within a swiper instance -->
+                <SwiperControls />
+            </Swiper>
+        </div>
     </div>
 </template>
 
@@ -40,7 +50,15 @@ const cookie = useCookie("keys", { expires: new Date('9999-12-31') })
 const eventManager = useEventManager()
 const config = useRuntimeConfig()
 const events = ref(null)
+const slides = ref(Array.from({ length: 10 }, () => {
+    const r = Math.floor(Math.random() * 256)
+    const g = Math.floor(Math.random() * 256)
+    const b = Math.floor(Math.random() * 256)
+    // Figure out contrast color for font
+    const contrast = r * 0.299 + g * 0.587 + b * 0.114 > 186 ? 'black' : 'white'
 
+    return { bg: `rgb(${r}, ${g}, ${b})`, color: contrast }
+}))
 onMounted(async () => {
     events.value = await eventManager.getDayList()
     console.log(events.value)
