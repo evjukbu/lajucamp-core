@@ -1,41 +1,22 @@
 <template>
-  <AdminLayoutHeader
-    title="Veranstaltungen verwalten"
-    subtitle="Hier kannst du alle
-  Veranstaltungen deines Sprengels verwalten."
-    :path="[
-      { name: 'Home', path: '/admin', active: false },
-      { name: 'Veranstaltungen', path: '/admin/events', active: true },
-    ]"
-  >
+  <AdminLayoutHeader title="Veranstaltungen verwalten" subtitle="Hier kannst du alle
+  Veranstaltungen deines Sprengels verwalten." :path="[
+    { name: 'Home', path: '/admin', active: false },
+    { name: 'Veranstaltungen', path: '/admin/events', active: true },
+  ]">
     <button class="btn btn-primary" @click="openCreateDialog()">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-        class="w-5 h-5"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
         <path
-          d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"
-        />
+          d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
       </svg>
       Neue Veranstaltung
     </button>
     <dialog id="my_modal_1" class="modal">
       <div class="modal-box w-11/12 max-w-7xl">
-        <button
-          class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-          @click="closeDialog()"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            class="w-5 h-5"
-          >
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="closeDialog()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
             <path
-              d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
-            />
+              d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
           </svg>
         </button>
         <h3 v-if="action === 0" class="font-bold text-lg">Neue Veranstaltung</h3>
@@ -44,23 +25,14 @@
           <div class="label">
             <span class="label-text">Veranstaltungstitel</span>
           </div>
-          <input
-            type="text"
-            placeholder="Beispieltitel"
-            class="input input-bordered w-full"
-            :disabled="submitting"
-            v-model="name"
-          />
+          <input type="text" placeholder="Beispieltitel" class="input input-bordered w-full" :disabled="submitting"
+            v-model="name" />
           <div class="my-3" v-if="pb.authStore.model.manageAllEvents">
             <label class="form-control w-full">
               <div class="label">
                 <span class="label-text">Sprengel</span>
               </div>
-              <select
-                v-model="team"
-                class="select select-bordered"
-                :disabled="submitting"
-              >
+              <select v-model="team" class="select select-bordered" :disabled="submitting">
                 <option v-for="team in teams" :key="team.id" :value="team.id">
                   {{ team.name }}
                 </option>
@@ -72,25 +44,15 @@
               <div class="label">
                 <span class="label-text">Startzeitpunkt</span>
               </div>
-              <VueDatePicker
-                class="w-full"
-                v-model="start"
-                input-class-name="input input-bordered"
-                menu-class-name="menu"
-                :disabled="submitting"
-              ></VueDatePicker>
+              <VueDatePicker class="w-full" v-model="start" input-class-name="input input-bordered"
+                menu-class-name="menu" :disabled="submitting"></VueDatePicker>
             </div>
             <div class="w-full">
               <div class="label">
                 <span class="label-text">Endzeitpunkt</span>
               </div>
-              <VueDatePicker
-                class="w-full"
-                v-model="end"
-                input-class-name="input input-bordered"
-                menu-class-name="menu"
-                :disabled="submitting"
-              ></VueDatePicker>
+              <VueDatePicker class="w-full" v-model="end" input-class-name="input input-bordered" menu-class-name="menu"
+                :disabled="submitting"></VueDatePicker>
             </div>
           </div>
           <div class="flex flex-row space-x-3">
@@ -98,16 +60,8 @@
               <div class="label">
                 <span class="label-text">Kategorie</span>
               </div>
-              <select
-                v-model="category"
-                class="select select-bordered"
-                :disabled="submitting"
-              >
-                <option
-                  v-for="category in categories"
-                  :key="category.id"
-                  :value="category.id"
-                >
+              <select v-model="category" class="select select-bordered" :disabled="submitting">
+                <option v-for="category in categories" :key="category.id" :value="category.id">
                   {{ category.name }}
                 </option>
               </select>
@@ -116,16 +70,8 @@
               <div class="label">
                 <span class="label-text">Ort</span>
               </div>
-              <select
-                v-model="location"
-                class="select select-bordered"
-                :disabled="submitting"
-              >
-                <option
-                  v-for="location in locations"
-                  :key="location.id"
-                  :value="location.id"
-                >
+              <select v-model="location" class="select select-bordered" :disabled="submitting">
+                <option v-for="location in locations" :key="location.id" :value="location.id">
                   {{ location.name }}
                 </option>
               </select>
@@ -134,29 +80,14 @@
           <div class="label">
             <span class="label-text">Beschreibung</span>
           </div>
-          <quill-editor
-            id="quill"
-            class="h-48 min-h-48 pt-3"
-            theme="snow"
-            toolbar="full"
-            contentType="html"
-            v-model:content="description"
-            :content="description"
-            :enable="!submitting"
-            v-if="modalIsOpen"
-          ></quill-editor>
+          <quill-editor id="quill" class="h-48 min-h-48 pt-3" theme="snow" toolbar="full" contentType="html"
+            v-model:content="description" :content="description" :enable="!submitting"
+            v-if="modalIsOpen"></quill-editor>
           <div class="form-control">
             <label class="label cursor-pointer">
               <span class="label-text">Auf der Startseite anzeigen:</span>
-              <input
-                type="checkbox"
-                class="toggle"
-                v-model="show_homepage"
-                false-value="false"
-                true-value="true"
-                checked
-                :disabled="submitting"
-              />
+              <input type="checkbox" class="toggle" v-model="show_homepage" false-value="false" true-value="true"
+                checked :disabled="submitting" />
             </label>
           </div>
         </div>
@@ -164,18 +95,13 @@
           <button class="btn pr-3" :disabled="submitting" @click="closeDialog()">
             Abbrechen
           </button>
-          <button
-            class="btn btn-primary"
-            :disabled="
-              name === null ||
-              start === null ||
-              end === null ||
-              location === null ||
-              category === null ||
-              submitting
-            "
-            @click="save()"
-          >
+          <button class="btn btn-primary" :disabled="name === null ||
+    start === null ||
+    end === null ||
+    location === null ||
+    category === null ||
+    submitting
+    " @click="save()">
             <div v-if="submitting">
               <span v-if="submitting" class="loading loading-spinner loading-xs"></span>
               Übertragen...
@@ -187,19 +113,10 @@
     </dialog>
     <dialog id="my_modal_2" class="modal">
       <div class="modal-box">
-        <button
-          class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-          @click="closeDeleteDialog()"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            class="w-5 h-5"
-          >
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="closeDeleteDialog()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
             <path
-              d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
-            />
+              d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
           </svg>
         </button>
         <h3 class="font-bold text-lg">Diese Veranstaltung wirklich löschen?</h3>
@@ -219,9 +136,7 @@
   </AdminLayoutHeader>
   <div class="pl-3">
     <div class="overflow-x-auto">
-      <AdminHighPermissionWarning
-        reason="Du bist berechtigt, Veranstaltungen aller Sprengel zu bearbeiten."
-      />
+      <AdminHighPermissionWarning reason="Du bist berechtigt, Veranstaltungen aller Sprengel zu bearbeiten." />
       <AdminEventList :data="data" @delete="deleteDialog" @edit="edit" />
     </div>
   </div>
@@ -390,12 +305,19 @@ async function confirmDelete() {
   const record = await pb.collection("events").getOne(selectedId, {});
   console.log(record);
   await pb.collection("events").delete(record.id);
-  await getAllEvents();
+  data.value.splice(getIndexById(record.id), 1)
   closeDeleteDialog();
   submitting.value = false;
 }
 
 function notImplemented() {
   alert("Not implemented yet!")
+}
+
+function getIndexById(id) {
+  const index = data.value.findIndex(object => {
+    return object.id === id;
+  });
+  return index
 }
 </script>
