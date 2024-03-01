@@ -5,9 +5,9 @@
             <option>Veranstaltungen</option>
             <option>Kategorien</option>
         </select>
-        <SplittedEventList class="h-full" v-if="getViewMode() === 0" />
         <CategoryList v-if="getViewMode() === 1" />
     </CardLikeContainer>
+    <SplittedEventList class="h-full" v-if="getViewMode() === 0" />
 </template>
 
 <script setup>
