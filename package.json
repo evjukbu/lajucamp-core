@@ -1,5 +1,5 @@
 {
-  "name": "Landesjugendcamp",
+  "name": "Evangelische Jugend",
   "private": true,
   "scripts": {
     "build": "nuxt build",
