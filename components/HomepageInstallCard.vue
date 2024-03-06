@@ -27,13 +27,14 @@ const cookie = useCookie("installed", { expires: new Date('9999-12-31') })
 const deviceName = ref("")
 const supported = ref(true)
 const target = ref("/")
+const config = useRuntimeConfig()
 if (device.isIos) {
   deviceName.value = "iPhone"
-  target.value = "https://apps.apple.com/de/app/bulabu-jugendfestival/id6463813545"
+  target.value = config.public.iosLink || "/misc/install"
 } else {
   if (device.isAndroid) {
     deviceName.value = "Android"
-    target.value = "https://play.google.com/store/apps/details?id=de.kjdburgdorf.festival"
+    target.value = config.public.iosLink || "https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DAndroid"
   } else {
     supported.value = false
   }

@@ -82,6 +82,9 @@ export default defineNuxtConfig({
       short_title: '',
       description: '',
       hds: true,
+      disableEvents: false,
+      iosLink: '',
+      androidLink: '',
     }
   },
   pwa: {
