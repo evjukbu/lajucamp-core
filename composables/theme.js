@@ -1,10 +1,14 @@
 export const useTheme = () => {
-    const DEFAULT_THEME = "lajucamp24"
+    const config = useRuntimeConfig()
+
+    const DEFAULT_THEME = config.public.theme
 
     const cookie = useCookie("theme", { expires: new Date('9999-12-31') })
     const themes = [
         { name: 'Lajucamp24 - Standard', internal: "lajucamp24", dark: false },
         { name: 'Lajucamp24 Dunkel', internal: "lajucamp24Dark", dark: true },
+        { name: 'EvJuKBu', internal: "kjd", dark: false },
+        { name: 'EvJuKBu Dunkel', internal: "kjdDark", dark: true },
         { name: 'Festival', internal: "bulabulight", dark: false },
         { name: 'Festival Dunkel', internal: "bulabu", dark: true },
         { name: 'Pastel', internal: "pastel", dark: false },

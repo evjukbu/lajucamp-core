@@ -55,6 +55,28 @@ export default defineNuxtConfig({
               "warning": "#CE7E00",
               "error": "#e70000",
             },
+            kjd: {
+              "primary": "#00aca8",
+              "secondary": "#d24b09",
+              "accent": "#42288f",
+              "neutral": "#212121",
+              "base-100": "#f3f4f6",
+              "info": "#14b8a6",
+              "success": "#74bb20",
+              "warning": "#CE7E00",
+              "error": "#e70000",
+            },
+            kjdDark: {
+              "primary": "#00aca8",
+              "secondary": "#d24b09",
+              "accent": "#8970d7",
+              "neutral": "#eae9fc",
+              "base-100": "#181f25",
+              "info": "#14b8a6",
+              "success": "#74bb20",
+              "warning": "#CE7E00",
+              "error": "#e70000",
+            },
           },
           "pastel",
           "forest",
@@ -85,6 +107,7 @@ export default defineNuxtConfig({
       disableEvents: false,
       iosLink: '',
       androidLink: '',
+      theme: 'lajucamp24'
     }
   },
   pwa: {
