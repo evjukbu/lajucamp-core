@@ -1,5 +1,5 @@
 {
-  "name": "Evangelische Jugend",
+  "name": "EvJu",
   "private": true,
   "scripts": {
     "build": "nuxt build",
