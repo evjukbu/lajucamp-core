@@ -6,7 +6,7 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
           d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
       </svg>
-      <span>Du verwendest ein iOS Gerät. Leider ist die Festivalapp derzeit nicht im App-Store verfügbar. Folge diesen
+      <span>Du verwendest ein iOS Gerät. Leider ist die App derzeit nicht im App-Store verfügbar. Folge diesen
         Schritten, um sie deinem Startbildschirm hinzuzufügen.</span>
     </div>
     <div class="flex flex-col space-y-3">
@@ -24,7 +24,7 @@
       <img class="rounded-lg" src="~assets/ios/ios_pwa_add.webp" />
 
       <span class="text-xl">Fertig!</span>
-      <p>Herzlichen Glückwunsch! Die Festivalapp wurde deinem Startbildschrim hinzugefügt und du kannst sie wie jede
+      <p>Herzlichen Glückwunsch! Die App wurde deinem Startbildschrim hinzugefügt und du kannst sie wie jede
         andere App auch verwenden.</p>
       <img class="rounded-lg" src="~assets/ios/ios_pwa_installed.webp" />
 

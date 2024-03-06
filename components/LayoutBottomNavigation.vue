@@ -10,7 +10,7 @@
             <span class="btm-nav-label">Home</span>
         </router-link>
 
-        <router-link :class="(routes.events.includes($route.name)) ? 'active' : 'not_active'" to="/events">
+        <router-link v-if="!config.public.disableEvents" :class="(routes.events.includes($route.name)) ? 'active' : 'not_active'" to="/events">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -91,6 +91,8 @@ const routes = {
         "pictures"
     ]
 }
+
+const config = useRuntimeConfig()
 
 const cookie = useCookie("keys", { expires: new Date('9999-12-31') })
 

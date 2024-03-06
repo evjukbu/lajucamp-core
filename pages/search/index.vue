@@ -4,12 +4,12 @@
         <input v-model="query" @input="search()" type="text" placeholder="Suchbegriff eingeben"
             class="input input-bordered w-full" /><br />
         <div class="pb-3" v-if="query !== ''">
-            <div v-if="events !== null && events.length > 0">
+            <div v-if="events !== null && events.length > 0 && !config.public.disableEvents">
                 <span class="text-sm font-light">Veranstaltungen</span>
                 <EventListEntry v-for="event in events" :key="event.id" :item="event" :locations="locationList"
                     :categories="categoryList" />
             </div>
-            <div v-if="categories !== null && categories.length > 0">
+            <div v-if="categories !== null && categories.length > 0 && !config.public.disableEvents">
                 <span class="text-sm font-light">Kategorien</span>
                 <CategoryListEntry v-for="category in categories" :key="category.id" :category="category" />
             </div>
@@ -33,6 +33,7 @@ const songs = ref(null)
 const locationList = ref({})
 const categoryList = ref({})
 const allowMusic = ref(false)
+const config = useRuntimeConfig()
 
 const cookie = useCookie("keys", { expires: new Date('9999-12-31') })
 
