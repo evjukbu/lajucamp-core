@@ -42,5 +42,15 @@
         "DB:08:51:07:65:D5:4F:DE:1A:6B:46:E7:3D:D9:8F:24:85:49:F7:D0:76:15:86:57:C5:C5:1E:50:E1:54:9A:0F"
       ]
     }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "de.evju_auefuhse_kjdapp",
+      "sha256_cert_fingerprints": [
+        "C4:38:9D:3D:92:C1:31:D5:07:41:E3:CE:07:B4:6D:CA:50:23:AF:85:EE:F1:C4:A3:F0:EC:23:AB:7F:7B:BC:0C"
+      ]
+    }
   }
 ]
