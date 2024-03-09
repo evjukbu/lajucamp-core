@@ -44,15 +44,7 @@ if (await shouldUpdateCache(postStore, 'posts')) {
 }
 
 function shouldShiftNavbar() { 
-    if (device.isIos) { 
-        if (device.userAgent.includes("hasHomeButton=false")) {
-            return true
-        } else {
-            return false
-        }
-    } else {
-        return false
-    }
+    return device.isIos && device.userAgent.includes("hasHomeButton=false");
 }
 
 function assembleNavbarClass() {
