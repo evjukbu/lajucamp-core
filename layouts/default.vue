@@ -1,7 +1,6 @@
 <template>
     <LayoutThemeHelper class="min-h-full">
         <LayoutTopbar class="sticky top-0 z-50" />
-        {{  shouldShiftNavbar() }}
         <main :data-theme="theme.getCurrentTheme()" class="content px-3 bg-background relative pb-16">
             <slot />
         </main>
